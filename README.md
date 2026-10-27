@@ -4,6 +4,8 @@ LLM Game Master가 여러 세션에 걸쳐 같은 세계를 운영하도록 돕�
 
 현재 버전은 **0.4.0, RPG MCP 도구 25개**입니다. 서버가 GM을 자동 실행하지는 않습니다. MCP 호스트에 연결한 에이전트가 도구를 사용해 플레이를 진행합니다. 별도 웹 플레이 UI와 완성된 TRPG 룰북은 제공하지 않습니다.
 
+ChatGPT에서 사용하려면 [연결·HTTPS 배포 안내](docs/chatgpt.md)를 따릅니다. 공개 서버와 OAuth 제공자 설정이 필요하며 로컬 개발 토큰은 직접 연결용 인증이 아닙니다.
+
 ## 빠른 시작
 
 Node.js **22.12 이상**과 npm이 필요합니다. 로컬 검증 환경은 Node.js 24입니다. `better-sqlite3`의 사전 빌드가 없는 환경에서는 네이티브 빌드 도구가 필요할 수 있습니다.
@@ -45,7 +47,7 @@ RPG_DEV_TOKEN=local-test-token npm run dev:server
 
 개발 토큰은 루프백 개발용입니다. 원격 운영에는 HTTPS와 외부 IdP의 issuer·audience·JWKS 설정이 필요합니다. 서버 자체가 OAuth 인증 서버를 제공하지 않으며, 운영 배포 검증은 별도로 필요합니다.
 
-IdP가 없는 소규모 운영 배포는 `RPG_BEARER_TOKEN`과 HTTPS `RPG_PUBLIC_URL`을 비밀 관리자로 주입해 실행할 수 있습니다. 이 모드는 단일 운영자 정체성을 사용하므로 다중 사용자 운영에는 OIDC를 사용하세요.
+IdP가 없는 소규모 운영 배포는 `RPG_BEARER_TOKEN`과 HTTPS `RPG_PUBLIC_URL`을 비밀 관리자로 주입해 실행할 수 있습니다. 이 모드는 단일 운영자 정체성을 사용하므로 다중 사용자 운영에는 OIDC를 사용하세요. 이 운영 bearer 모드는 사용자 정의 Authorization 헤더를 지원하는 MCP 클라이언트용입니다. ChatGPT 연결에는 OAuth를 사용합니다.
 
 Docker 이미지는 루트에서 빌드하고 `/data`를 영속 볼륨으로 마운트합니다.
 
