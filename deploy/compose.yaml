@@ -1,0 +1,35 @@
+services:
+  server:
+    build:
+      context: ..
+    restart: unless-stopped
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3000
+      RPG_DB: /data/rpg.db
+      OIDC_ISSUER: ${OIDC_ISSUER:?Set your OAuth issuer URL}
+      OIDC_AUDIENCE: https://${RPG_PUBLIC_HOST:?Set your public hostname}/mcp
+      OIDC_JWKS_URL: ${OIDC_JWKS_URL:?Set your issuer JWKS URL}
+      OIDC_SCOPE: ${OIDC_SCOPE:-rpg}
+    volumes:
+      - game-data:/data
+    expose:
+      - "3000"
+  gateway:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      RPG_PUBLIC_HOST: ${RPG_PUBLIC_HOST:?Set your public hostname}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      - server
+volumes:
+  game-data:
+  caddy-data:
+  caddy-config:

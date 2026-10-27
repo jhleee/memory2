@@ -1,5 +1,12 @@
 # 변경 이력
 
+## ChatGPT 연결 준비 — 2026-10-27
+
+- OAuth resource metadata와 401 scope challenge, 도구의 읽기·변경 annotations를 추가했습니다.
+- HTTPS 리버스 프록시·비루트 컨테이너·영속 SQLite 볼륨 배포 구성과 연결·GM 운영 안내를 추가했습니다.
+- 공개 서버 배포와 실제 ChatGPT OAuth 로그인은 별도 설정 후 검증해야 합니다.
+
+
 ## OpenRouter 무료 모델 갱신 — 2026-10-27
 
 - 종료된 `inception/mercury-decide:free` 대신 OpenRouter Decisions API에서 실제 가용한 `baseten/mammoth-1:free`를 기본 판단 모델로 지정했습니다.

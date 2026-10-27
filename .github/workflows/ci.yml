@@ -25,3 +25,22 @@ jobs:
       - run: npm run repo:check
       - run: npm run typecheck
       - run: npm test
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker build -t memory2:ci .
+      - run: python3 scripts/check-container.py --image memory2:ci
+      - name: Validate Compose
+        env:
+          RPG_PUBLIC_HOST: rpg.example.com
+          OIDC_ISSUER: https://idp.example/
+          OIDC_JWKS_URL: https://idp.example/jwks
+        run: docker compose -f deploy/compose.yaml config --quiet
+      - name: Validate HTTPS proxy configuration
+        run: >-
+          docker run --rm
+          --mount "type=bind,src=${{ github.workspace }}/deploy/Caddyfile,dst=/etc/caddy/Caddyfile,readonly"
+          -e RPG_PUBLIC_HOST=rpg.example.com
+          caddy:2-alpine caddy validate --config /etc/caddy/Caddyfile

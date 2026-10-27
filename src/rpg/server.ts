@@ -28,6 +28,12 @@ export async function serve(core: RpgCore, options: {
     requireThat([Boolean(dev), Boolean(bearer), oidc].filter(Boolean).length === 1, 'VALIDATION_ERROR', 'JWT, 운영 bearer 토큰, 로컬 개발 토큰 중 하나의 인증 설정이 필요합니다.');
     if (options.publicUrl)
         requireThat(new URL(options.publicUrl).protocol === 'https:', 'VALIDATION_ERROR', '공개 URL은 HTTPS여야 합니다.');
+    const scope = options.scope ?? 'rpg';
+    requireThat(/^[\x21\x23-\x5B\x5D-\x7E]+$/.test(scope), 'VALIDATION_ERROR', 'OAuth scope는 공백 없는 단일 값이어야 합니다.');
+    const resourceUrl = oidc ? new URL(options.audience!) : undefined;
+    requireThat(!resourceUrl || (resourceUrl.protocol === 'https:' && resourceUrl.pathname === '/mcp' && !resourceUrl.username && !resourceUrl.password && !resourceUrl.search && !resourceUrl.hash), 'VALIDATION_ERROR', 'OAuth resource는 자격 증명·쿼리·fragment 없는 HTTPS /mcp URL이어야 합니다.');
+    const metadataPath = '/.well-known/oauth-protected-resource/mcp';
+    const metadataUrl = resourceUrl ? `${resourceUrl.origin}${metadataPath}` : undefined;
     const jwks = options.jwksUrl ? createRemoteJWKSet(new URL(options.jwksUrl)) : undefined;
     const resources = new Set<{
         server: ReturnType<typeof createRpgMcp>;
@@ -38,8 +44,8 @@ export async function serve(core: RpgCore, options: {
             res.writeHead(200, { 'content-type': 'application/json' }).end('{"status":"ok"}');
             return;
         }
-        if (req.url === '/.well-known/oauth-protected-resource' && oidc) {
-            res.writeHead(200, { 'content-type': 'application/json' }).end(JSON.stringify({ resource: options.audience, authorization_servers: [options.issuer], scopes_supported: [options.scope ?? 'rpg'] }));
+        if ([metadataPath, '/.well-known/oauth-protected-resource'].includes(req.url ?? '') && oidc) {
+            res.writeHead(200, { 'content-type': 'application/json' }).end(JSON.stringify({ resource: options.audience, authorization_servers: [options.issuer], scopes_supported: [scope], bearer_methods_supported: ['header'] }));
             return;
         }
         if (req.url !== '/mcp') {
@@ -69,13 +75,13 @@ export async function serve(core: RpgCore, options: {
             }
             else {
                 const { payload } = await jwtVerify(token, jwks!, { issuer: options.issuer, audience: options.audience, requiredClaims: ['sub', 'exp', 'iat'] });
-                requireThat(typeof payload.sub === 'string' && typeof payload.scope === 'string' && payload.scope.split(' ').includes(options.scope ?? 'rpg'), 'UNAUTHENTICATED');
+                requireThat(typeof payload.sub === 'string' && typeof payload.scope === 'string' && payload.scope.split(' ').includes(scope), 'UNAUTHENTICATED');
                 user = core.user(options.issuer!, payload.sub);
             }
         }
         catch {
-            const challenge = oidc ? `Bearer resource_metadata="${publicOrigin}/.well-known/oauth-protected-resource"` : 'Bearer';
-            res.writeHead(401, { 'WWW-Authenticate': challenge }).end();
+            const challenge = oidc ? `Bearer resource_metadata="${metadataUrl}", scope="${scope}"` : 'Bearer';
+            res.writeHead(401, { 'WWW-Authenticate': challenge, 'Cache-Control': 'no-store' }).end();
             return;
         }
         if (req.method !== 'POST') {
@@ -104,7 +110,7 @@ export async function serve(core: RpgCore, options: {
             res.writeHead(400).end();
             return;
         }
-        const server = createRpgMcp(core, user);
+        const server = createRpgMcp(core, user, oidc ? { oauthScope: scope } : {});
         const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
         const resource = { server, transport };
         resources.add(resource);

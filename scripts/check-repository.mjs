@@ -27,7 +27,7 @@ for (const required of ['README.md', 'AGENTS.md', 'CONTRIBUTING.md', 'NOTICE.md'
   if (!files.includes(required)) errors.push(`Missing repository file: ${required}`);
 }
 for (const file of files) {
-  if (/(?:^|\/)(?:\.env(?:\..*)?|[^/]+\.(?:db(?:-wal|-shm)?|sqlite3?|key|pem|zip))$/.test(file) && file !== '.env.example') errors.push(`Forbidden local or secret file: ${file}`);
+  if (/(?:^|\/)(?:\.env(?:\..*)?|[^/]+\.(?:db(?:-wal|-shm)?|sqlite3?|key|pem|zip))$/.test(file) && path.basename(file) !== '.env.example') errors.push(`Forbidden local or secret file: ${file}`);
   if (!fs.existsSync(path.join(root, file))) { errors.push(`Missing tracked file: ${file}`); continue; }
   const data = fs.readFileSync(path.join(root, file));
   if (data.length > 3 * 1024 * 1024) errors.push(`Oversized file: ${file}`);
