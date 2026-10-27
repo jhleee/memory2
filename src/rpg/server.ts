@@ -5,7 +5,7 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { Memory } from '../memory.js';
 import { MemoryRuntime } from '../runtime.js';
-import { OpenRouterDecisionProvider } from '../openrouter.js';
+import { DEFAULT_OPENROUTER_DECISION_MODEL, OpenRouterDecisionProvider } from '../openrouter.js';
 import { RpgCore } from './core.js';
 import { createRpgMcp } from './mcp.js';
 import { requireThat } from './contracts.js';
@@ -126,7 +126,7 @@ export async function serve(core: RpgCore, options: {
 }
 export async function main() {
     const memory = new Memory(process.env.RPG_DB ?? 'rpg.db');
-    const runtime = process.env.OPENROUTER_API_KEY ? new MemoryRuntime(memory, { decision: new OpenRouterDecisionProvider({ model: process.env.OPENROUTER_DECISION_MODEL ?? 'inception/mercury-decide:free' }) }) : undefined;
+    const runtime = process.env.OPENROUTER_API_KEY ? new MemoryRuntime(memory, { decision: new OpenRouterDecisionProvider({ model: process.env.OPENROUTER_DECISION_MODEL ?? DEFAULT_OPENROUTER_DECISION_MODEL }) }) : undefined;
     const core = new RpgCore(memory, runtime);
     let close: () => Promise<void>;
     if (process.argv.includes('--stdio')) {

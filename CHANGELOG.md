@@ -1,5 +1,10 @@
 # 변경 이력
 
+## OpenRouter 무료 모델 갱신 — 2026-10-27
+
+- 종료된 `inception/mercury-decide:free` 대신 OpenRouter Decisions API에서 실제 가용한 `baseten/mammoth-1:free`를 기본 판단 모델로 지정했습니다.
+- 라이브 평가 스크립트가 `OPENROUTER_GM_MODEL`과 `OPENROUTER_DECISION_MODEL`을 일관되게 사용하도록 했습니다.
+
 ## 운영 배포 구성 — 2026-10-27
 
 - Node.js 24 기반 다중 단계 Docker 빌드와 `/data` SQLite 영속 볼륨, 헬스 체크를 추가했습니다.

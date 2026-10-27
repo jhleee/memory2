@@ -1,7 +1,7 @@
 import type { DecisionCandidate, DecisionProvider, DecisionSuggestion, EmbeddingProvider } from './types.js';
 
 export const DEFAULT_OPENROUTER_EMBEDDING_MODEL = 'nvidia/nemotron-3-embed-1b:free';
-export const DEFAULT_OPENROUTER_DECISION_MODEL = 'inception/mercury-decide:free';
+export const DEFAULT_OPENROUTER_DECISION_MODEL = 'baseten/mammoth-1:free';
 const EMBEDDINGS_PATH = '/api/v1/embeddings';
 const DECISIONS_PATH = '/api/alpha/decisions';
 const MAX_DECISION_CANDIDATES = 20;

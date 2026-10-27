@@ -11,7 +11,8 @@ import { MemoryRuntime } from '../src/runtime.js';
 const key = process.env.OPENROUTER_API_KEY;
 if (!key)
     throw new Error('OPENROUTER_API_KEY required');
-const GM = 'recursive/flint-v1.0:free', DECISION = 'inception/mercury-decide:free';
+const GM = process.env.OPENROUTER_GM_MODEL ?? 'recursive/flint-v1.0:free';
+const DECISION = process.env.OPENROUTER_DECISION_MODEL ?? 'baseten/mammoth-1:free';
 const report: any = {evaluation_protocol:'Independent persona planner → predefined action templates over actual MCP → evidence-based persona assessment', date: new Date().toISOString(), gm_model: GM, decision_model: DECISION, transport: 'SDK in-memory MCP client (not external hosts)', calls: [], personas: [], decision: {}, limits: { max_api_calls: 20, paid_fallback: false, embedding: false } };
 let count = 0;
 // curl inherits the session proxy/CA settings. Secret headers go through stdin, not argv or artifacts.

@@ -1,6 +1,6 @@
 import { spawn } from 'node:child_process';
-export const LONGPLAY_GM='recursive/flint-v1.0:free';
-export const LONGPLAY_DECISION='inception/mercury-decide:free';
+export const LONGPLAY_GM=process.env.OPENROUTER_GM_MODEL??'recursive/flint-v1.0:free';
+export const LONGPLAY_DECISION=process.env.OPENROUTER_DECISION_MODEL??'baseten/mammoth-1:free';
 export interface LiveCall {model:string;path:string;http_status:number;duration_ms:number;usage:any;finish_reason:string|null;error:any}
 export class LongplayOpenRouter {
  private count=0;

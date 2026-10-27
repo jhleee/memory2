@@ -102,6 +102,6 @@ npm run evaluate:rpg:world-time
 npm run evaluate:rpg:world-time:audit
 ```
 
-일부 과거 평가 명령은 앞선 평가의 DB를 필요로 합니다. [평가 데이터 안내](evaluation/README.md)를 확인하세요. OpenRouter 호출은 선택 사항이며 키는 환경변수로만 주입합니다. 지정 모델은 `recursive/flint-v1.0:free`와 `inception/mercury-decide:free`이며 무료 제공 여부와 가용성은 공급자가 변경할 수 있습니다. 기본 CI는 외부 LLM을 호출하지 않습니다.
+일부 과거 평가 명령은 앞선 평가의 DB를 필요로 합니다. [평가 데이터 안내](evaluation/README.md)를 확인하세요. OpenRouter 호출은 선택 사항이며 키는 환경변수로만 주입합니다. 평가용 GM 모델은 `OPENROUTER_GM_MODEL`(기본 `recursive/flint-v1.0:free`), 운영 메모리 판단 모델은 `OPENROUTER_DECISION_MODEL`(기본 `baseten/mammoth-1:free`)로 지정합니다. 무료 제공 여부와 가용성은 공급자가 변경할 수 있으며, 기본 CI는 외부 LLM을 호출하지 않습니다.
 
 이 저장소는 `jhleee/context-memory` 기반 구현을 이관했습니다. [출처](NOTICE.md)에 원본 커밋과 보존 문서를 기록했습니다. 별도 라이선스는 아직 지정하지 않았습니다.
