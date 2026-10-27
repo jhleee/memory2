@@ -45,6 +45,17 @@ RPG_DEV_TOKEN=local-test-token npm run dev:server
 
 개발 토큰은 루프백 개발용입니다. 원격 운영에는 HTTPS와 외부 IdP의 issuer·audience·JWKS 설정이 필요합니다. 서버 자체가 OAuth 인증 서버를 제공하지 않으며, 운영 배포 검증은 별도로 필요합니다.
 
+IdP가 없는 소규모 운영 배포는 `RPG_BEARER_TOKEN`과 HTTPS `RPG_PUBLIC_URL`을 비밀 관리자로 주입해 실행할 수 있습니다. 이 모드는 단일 운영자 정체성을 사용하므로 다중 사용자 운영에는 OIDC를 사용하세요.
+
+Docker 이미지는 루트에서 빌드하고 `/data`를 영속 볼륨으로 마운트합니다.
+
+```bash
+docker build -t memory2 .
+docker run --rm -p 3000:3000 -v memory2-data:/data \
+  -e RPG_BEARER_TOKEN="$(openssl rand -hex 32)" \
+  -e RPG_PUBLIC_URL=https://memory.example memory2
+```
+
 ## 구현 범위
 
 - 검증한 세계 초안을 불변 Release로 발행하고 캠페인 Game에 고정합니다.

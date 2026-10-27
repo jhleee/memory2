@@ -74,6 +74,25 @@ it('T-SEC-01 validates JWT signature, issuer, audience, expiry and scope', async
         m.close();
     }
 });
+it('T-SEC-02 supports a production bearer token on a public bind', async () => {
+    const memory = new Memory(':memory:');
+    const core = new RpgCore(memory);
+    const server = await serve(core, { port: 0, host: '0.0.0.0', bearerToken: 'production-test-token', publicUrl: 'https://memory.example' });
+    const url = new URL(`http://127.0.0.1:${(server.http.address() as any).port}/mcp`);
+    const client = new Client({ name: 'bearer-host', version: '1' });
+    try {
+        expect((await fetch(url, { method: 'POST' })).status).toBe(401);
+        expect((await fetch(new URL('/.well-known/oauth-protected-resource', url))).status).toBe(404);
+        await client.connect(new StreamableHTTPClientTransport(url, { requestInit: { headers: { Authorization: 'Bearer production-test-token' } } }));
+        expect((await client.listTools()).tools).toHaveLength(25);
+        expect(core.row('SELECT count(*) n FROM users WHERE issuer=? AND subject=?', 'static-bearer', 'operator').n).toBe(1);
+    }
+    finally {
+        await client.close();
+        await server.close();
+        memory.close();
+    }
+});
 it('T-MCP-01 completes World authoring and Game creation only through tools',async()=>{
  const m=new Memory(':memory:');const core=new RpgCore(m);const u=core.user('test','maker');const fixture=await seedSample(core,u);const original=core.manifest(core.world(u,fixture.world_id));const server=createRpgMcp(core,u);const client=new Client({name:'authoring-host',version:'1'});const [a,b]=InMemoryTransport.createLinkedPair();await server.connect(a);await client.connect(b);
  const call=async(name:string,args:any)=>{const r=await client.callTool({name,arguments:args});expect(r.isError).not.toBe(true);return r.structuredContent as any;};

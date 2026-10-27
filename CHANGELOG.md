@@ -1,5 +1,11 @@
 # 변경 이력
 
+## 운영 배포 구성 — 2026-10-27
+
+- Node.js 24 기반 다중 단계 Docker 빌드와 `/data` SQLite 영속 볼륨, 헬스 체크를 추가했습니다.
+- IdP가 없는 소규모 HTTPS 배포에서 사용할 수 있도록 개발 토큰과 분리된 `RPG_BEARER_TOKEN`과 `RPG_PUBLIC_URL`을 추가했습니다.
+- 운영 의존성의 `body-parser`, `fast-uri`, `ip-address` 보안 업데이트를 잠금 파일에 반영했습니다.
+
 ## 의존성 검토 — 2026-10-27
 
 - Node 타입 24.19.2, TypeScript 7.0.2와 Zod 4.6.7을 적용했습니다.
