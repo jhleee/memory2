@@ -36,7 +36,7 @@ export function canonical(v: unknown): string {
 export const hash = (v: unknown) => createHash('sha256').update(canonical(v)).digest('hex');
 const s = z.string().trim().min(1).max(200);
 const rev = z.number().int().nonnegative();
-const obj = z.record(z.unknown());
+const obj = z.record(z.string(), z.unknown());
 export const actionSchema = z.object({ type: z.enum(['move', 'inspect', 'speak', 'attack', 'use_item', 'skill_check', 'choose', 'activity']), time_quote_id:s.optional(), actor_id: s, target_id: s.optional(), params: obj.optional() }).strict();
 const op = z.discriminatedUnion('op', [
     z.object({ op: z.literal('upsert_schema'), type_name: s, schema: obj }).strict(),
@@ -48,7 +48,7 @@ const op = z.discriminatedUnion('op', [
 const page = { page_size: z.number().int().min(1).max(100).default(20), cursor: rev.default(0) };
 export const contracts = {
     rpg_game_time_get: z.object({game_id:s}).strict(),
-    rpg_game_time_configure: z.object({game_id:s,expected_revision:rev,idempotency_key:s,initial_seconds:seconds.default(0),action_seconds:timeCosts.default({})}).strict(),
+    rpg_game_time_configure: z.object({game_id:s,expected_revision:rev,idempotency_key:s,initial_seconds:seconds.default(0),action_seconds:timeCosts.prefault({})}).strict(),
     rpg_game_time_plan: z.object({game_id:s,expected_time_revision:rev,idempotency_key:s,activity:activityInput}).strict(),
     rpg_game_time_schedule: z.object({game_id:s,expected_time_revision:rev,idempotency_key:s,incident:timeIncident}).strict(),
     rpg_game_time_reveal: z.object({game_id:s,expected_revision:rev,idempotency_key:s,facts:z.array(z.object({subject_id:s,predicate:s}).strict()).min(1).max(20),reason:z.string().trim().min(1).max(2000)}).strict(),
@@ -73,7 +73,7 @@ export const contracts = {
 };
 export type ToolName = keyof typeof contracts;
 export const characterSchema = z.object({ hp: rev, max_hp: z.number().int().positive(), position_id: s, inventory: z.array(z.object({ item_id: s, quantity: rev }).strict()), conditions: z.array(s), attack_bonus: z.number().int().default(0), damage_bonus: z.number().int().default(0), defense: rev.default(0) }).strict().refine(c => c.hp <= c.max_hp);
-export const stateSchema = z.object({ scene_id: s, world_tick: rev, characters: z.record(characterSchema), flags: obj, combat: z.null(), campaign: campaignStateSchema.optional(), time:publicTime.optional() }).strict();
-export const startSchema = z.object({ state: stateSchema, player_character_id: s, adjacency: z.record(z.array(s)), weapons: z.record(z.object({ damage_bonus: z.number().int().min(0).max(20) }).strict()), healing_items: z.array(s), skill_checks: z.record(z.object({ dc: z.number().int().min(1).max(40), bonus: z.number().int().min(-20).max(20) }).strict()).default({}) }).strict();
+export const stateSchema = z.object({ scene_id: s, world_tick: rev, characters: z.record(z.string(), characterSchema), flags: obj, combat: z.null(), campaign: campaignStateSchema.optional(), time:publicTime.optional() }).strict();
+export const startSchema = z.object({ state: stateSchema, player_character_id: s, adjacency: z.record(z.string(), z.array(s)), weapons: z.record(z.string(), z.object({ damage_bonus: z.number().int().min(0).max(20) }).strict()), healing_items: z.array(s), skill_checks: z.record(z.string(), z.object({ dc: z.number().int().min(1).max(40), bonus: z.number().int().min(-20).max(20) }).strict()).default({}) }).strict();
 export type State = z.infer<typeof stateSchema>;
 export type Action = z.infer<typeof actionSchema>;

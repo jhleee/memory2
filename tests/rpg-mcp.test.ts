@@ -79,3 +79,30 @@ it('T-MCP-01 completes World authoring and Game creation only through tools',asy
  const call=async(name:string,args:any)=>{const r=await client.callTool({name,arguments:args});expect(r.isError).not.toBe(true);return r.structuredContent as any;};
  try{const world=await call('rpg_world_create',{name:'wire world',idempotency_key:'wire-create'});const manifest=JSON.parse(JSON.stringify(original).replaceAll(fixture.world_id,world.world_id));await call('rpg_world_edit',{world_id:world.world_id,expected_revision:0,idempotency_key:'wire-edit',operations:[...manifest.schemas.map((s:any)=>({op:'upsert_schema',type_name:s.type_name,schema:s.schema})),...manifest.entities.map((e:any)=>({op:'upsert_entity',id:e.id,type_name:e.type_name,data:e.data})),{op:'set_start_config',config:manifest.start_config}]});const release=await call('rpg_world_publish',{world_id:world.world_id,version:'1.0.0',expected_revision:1,idempotency_key:'wire-publish'});const game=await call('rpg_game_start',{release_id:release.release_id,idempotency_key:'wire-start'});expect(await call('rpg_game_get_context',{game_id:game.game_id})).toMatchObject({revision:0,release_id:release.release_id});expect((await call('rpg_world_get',{world_id:world.world_id})).releases[0].id).toBe(release.release_id);expect((await call('rpg_world_list',{})).items.length).toBe(2);expect((await call('rpg_game_list',{})).items.length).toBe(2);expect((await call('rpg_game_timeline',{game_id:game.game_id})).events.items).toEqual([]);}finally{await client.close();await server.close();m.close();}
 });
+
+it('configures a clock through MCP with omitted costs and preserves defaults on replay', async () => {
+    const memory = new Memory(':memory:');
+    const core = new RpgCore(memory);
+    const owner = core.user('contract-test', 'owner');
+    const sample = await seedSample(core, owner);
+    const server = createRpgMcp(core, owner);
+    const client = new Client({ name: 'clock-contract', version: '1' });
+    const [a, b] = InMemoryTransport.createLinkedPair();
+    try {
+        await server.connect(a);
+        await client.connect(b);
+        const request = { name: 'rpg_game_time_configure', arguments: {
+            game_id: sample.game_id, expected_revision: 0, idempotency_key: 'default-clock',
+        } };
+        expect((await client.callTool(request)).isError).not.toBe(true);
+        expect((await client.callTool(request)).structuredContent).toMatchObject({ status: 'replayed' });
+        const clock = await client.callTool({ name: 'rpg_game_time_get', arguments: { game_id: sample.game_id } });
+        expect(clock.structuredContent).toMatchObject({ enabled: true, seconds: 0,
+            action_seconds: { move: 60, attack: 6, use_item: 6, skill_check: 30, inspect: 0, choose: 0 } });
+        expect(core.verify(owner, sample.game_id).verified).toBe(true);
+    } finally {
+        await client.close();
+        await server.close();
+        memory.close();
+    }
+});
