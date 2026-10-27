@@ -1,0 +1,94 @@
+{
+  "name": "memory2",
+  "version": "0.4.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "exports": {
+    ".": "./dist/src/index.js"
+  },
+  "bin": {
+    "context-memory": "./dist/src/cli.js"
+  },
+  "scripts": {
+    "build": "tsc && cp src/dashboard.html dist/src/dashboard.html && mkdir -p dist/migrations && cp migrations/*.sql dist/migrations/",
+    "typecheck": "tsc --noEmit",
+    "pretest": "npm run build",
+    "test": "vitest run",
+    "demo": "node --import tsx src/cli.ts demo",
+    "mcp": "node --import tsx src/cli.ts mcp",
+    "dashboard": "node --import tsx src/cli.ts serve",
+    "embed": "node --import tsx src/cli.ts embed",
+    "evaluate": "node --import tsx scripts/evaluate-openrouter.ts",
+    "smoke:openrouter": "npm run build && node --import tsx scripts/smoke-openrouter.ts",
+    "benchmark:gameplay": "node --import tsx scripts/benchmark-gameplay.ts",
+    "benchmark:world": "node --import tsx scripts/benchmark-world-stress.ts",
+    "benchmark:context": "node --import tsx scripts/benchmark-world-context.ts",
+    "test:unit": "vitest run tests/core.test.ts tests/rpg-rules.test.ts tests/graph.test.ts",
+    "test:integration": "vitest run tests/rpg.test.ts",
+    "test:contract": "vitest run tests/rpg-mcp.test.ts",
+    "test:e2e": "vitest run tests/rpg.test.ts tests/rpg-mcp.test.ts",
+    "db:migrate": "node --import tsx scripts/rpg-seed.ts --migrate",
+    "db:seed:sample": "node --import tsx scripts/rpg-seed.ts",
+    "dev:server": "node --import tsx scripts/rpg-server.ts",
+    "dev:mcp:stdio": "node --import tsx scripts/rpg-server.ts --stdio",
+    "db:backup": "node --import tsx scripts/rpg-backup.ts backup",
+    "db:verify": "node --import tsx scripts/rpg-backup.ts verify",
+    "evaluate:rpg:live": "node --import tsx scripts/rpg-live-evaluation.ts",
+    "evaluate:rpg:designer": "node --import tsx scripts/eval-designer.ts",
+    "evaluate:rpg:gamer": "node --import tsx scripts/eval-gamer.ts",
+    "benchmark:rpg": "node --import tsx scripts/rpg-benchmark.ts",
+    "evaluate:rpg:longplay": "node --import tsx scripts/rpg-longplay.ts",
+    "evaluate:rpg:longplay:offline": "node --import tsx scripts/rpg-longplay.ts --offline",
+    "evaluate:rpg:longplay:audit": "node --import tsx scripts/audit-longplay.ts",
+    "evaluate:rpg:longplay:plot": "python3 scripts/plot-longplay.py",
+    "evaluate:rpg:engagement": "node --import tsx scripts/rpg-engagement.ts",
+    "evaluate:rpg:engagement:offline": "node --import tsx scripts/rpg-engagement.ts --offline",
+    "evaluate:rpg:engagement:audit": "node --import tsx scripts/audit-engagement.ts",
+    "evaluate:rpg:engagement:plot": "python3 scripts/plot-engagement.py",
+    "evaluate:rpg:campaign-v2": "node --import tsx scripts/rpg-campaign-v2-evaluation.ts",
+    "evaluate:rpg:campaign-v2:offline": "node --import tsx scripts/rpg-campaign-v2-evaluation.ts --offline",
+    "test:campaign": "vitest run tests/campaign.test.ts",
+    "db:seed:campaign": "node --import tsx scripts/rpg-campaign-demo.ts",
+    "evaluate:rpg:campaign-v2:audit": "node --import tsx scripts/audit-campaign-v2.ts",
+    "evaluate:rpg:campaign-v2:plot": "python3 scripts/plot-campaign-v2.py",
+    "evaluate:rpg:world-evolution": "node --import tsx scripts/evaluate-world-evolution.ts",
+    "evaluate:rpg:world-evolution:audit": "node --import tsx scripts/audit-world-evolution.ts",
+    "test:gm-notes": "vitest run tests/gm-notes.test.ts",
+    "evaluate:rpg:gm-attention": "node --import tsx scripts/evaluate-gm-attention.ts",
+    "test:world-time": "vitest run tests/world-time.test.ts",
+    "evaluate:rpg:world-time": "node --import tsx scripts/evaluate-world-time.ts",
+    "evaluate:rpg:world-time:audit": "node --import tsx scripts/audit-world-time.ts",
+    "evaluate:rpg:cold:setup": "node --import tsx scripts/setup-cold-start.ts",
+    "evaluate:rpg:cold:snapshot": "node --import tsx scripts/cold-start-snapshot.ts",
+    "evaluate:rpg:cold:audit": "node --import tsx scripts/audit-cold-start.ts",
+    "evaluate:rpg:cold:probe": "node --import tsx scripts/probe-cold-start.ts",
+    "evaluate:rpg:cold:flint": "node --import tsx scripts/evaluate-cold-flint.ts",
+    "repo:check": "node scripts/check-repository.mjs"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "ajv": "^8.20.0",
+    "better-sqlite3": "^12.0.0",
+    "jose": "^6.2.13",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.0",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0",
+    "vitest": "^3.2.0"
+  },
+  "description": "Persistent TRPG MCP platform with canonical world state, memory, GM notes and world time",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhleee/memory2.git"
+  },
+  "homepage": "https://github.com/jhleee/memory2#readme",
+  "bugs": {
+    "url": "https://github.com/jhleee/memory2/issues"
+  }
+}

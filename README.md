@@ -56,22 +56,21 @@ RPG_DEV_TOKEN=local-test-token npm run dev:server
 
 ## 현재 한계와 평가
 
-자동 테스트와 다중 세션·첫 사용 에이전트 평가를 포함합니다. **테스트 통과는 서사 모순이나 재미를 보증하지 않습니다.** 최신 첫 사용 평가에서는 168회 MCP 호출과 80개 저장 감사 검사를 수행했지만 다음 문제가 관측됐습니다.
+자동 테스트는 저장·권한·MCP 계약을 검사합니다. 서사의 의미 정합성과 사람의 재미는 별도의 검증이 필요합니다. 현재 알려진 한계는 다음과 같습니다.
 
 - 첫 플레이 행동 뒤에는 세계 시간을 새로 활성화할 수 없습니다. 시간 제한을 쓸 캠페인은 시작 전에 설정하세요.
 - 이전 미확인 사실과 새 확정 사실, 변경 전 묘사가 함께 남을 수 있습니다.
 - 지리 연결은 잠금·통행 조건을 자동으로 표현하지 않습니다.
 - NPC 동행의 실제 이동, 소지 문서 inspect, 큰 응답의 압축에 보완이 필요합니다.
 
-이 항목은 아직 수정 완료가 아닙니다. [수정 과제](docs/cold-start-issues.md)와 [첫 사용 평가](docs/cold-start-report.md)에 재현 근거가 있습니다. Flint 실증에는 공급자 오류와 출력 예산 제한이 있었으며 인간 장기 플레이 평가는 아직 없습니다.
+이 항목은 아직 수정 완료가 아닙니다. [수정 과제](docs/known-issues.md)에 후속 작업을 기록했습니다.
 
 ## 문서와 개발
 
-- [문서 안내](docs/README.md) · [전체 플랫폼 사용법](docs/platform-reference.md)
-- [구조와 상태 경계](docs/architecture.md) · [구현 현황](docs/implementation-status.md)
+- [문서 안내](docs/README.md)
+- [구조와 상태 경계](docs/architecture.md)
 - [개발 참여](CONTRIBUTING.md) · [에이전트 작업 지침](AGENTS.md) · [변경 이력](CHANGELOG.md)
-- [세계 시간](docs/world-time-guide.md) · [GM 메모](docs/gm-attention-guide.md)
-- [장기 플레이](docs/longplay-report.md) · [세계 확장](docs/world-evolution-report.md)
+- [평가 실행과 공개 범위](docs/evaluation-policy.md)
 
 ```text
 src/           메모리 기반 모듈과 src/rpg/ 도메인·MCP 서버

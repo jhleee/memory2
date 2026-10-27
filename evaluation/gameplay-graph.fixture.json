@@ -1,0 +1,2272 @@
+{
+  "version": 1,
+  "title": "검은 항구의 밤 · TRPG 플레이 그래프 벤치마크",
+  "description": "5회 세션의 한국어 캠페인 그래프. 인과와 상관관계, 분기 결과, 소문과 정정, 삭제, 미해결 Mention의 사후 동일성 확인, 동명이인, 약속과 시간 순서를 평가한다. 별도 game-decoy 공간은 이름이 같은 인물을 포함한 평행 캠페인으로 game-main 검색에서 제외되어야 한다.",
+  "space_id": "game-main",
+  "sessions": [
+    {
+      "id": "session-01",
+      "label": "1막 · 검은 비와 밀수선",
+      "records": [
+        {
+          "space_id": "game-main",
+          "evidence": {
+            "source_type": "game_session",
+            "content": "나리의 항해일지와 부두 증언: 저녁부터 폭우와 짙은 안개가 항구를 덮었다. 은종은 안개 속에서도 두 번 울렸지만 종소리가 배의 출항을 늦췄다는 증거는 없다. 비에 젖은 짐수레는 북쪽 등대로 가는 길에서 지연됐다. 세관 서기 도윤은 검은 돛단배의 적재 목록에 없는 봉인을 보았다고 했다. 나리는 그 진술을 기록했을 뿐 사실로 확정하지 않았다. 동문 초소에는 경비가 있었고, 서문 초소에는 교대 인원이 비어 있었다는 상반된 기록이 남았다. 수위표 장부의 첫 장이 찢겨 있었다. 바다 쪽에서 청색 섬광이 한 번 보였다는 어부의 말은 확인되지 않았다.",
+            "metadata": {
+              "session": "01",
+              "language": "ko"
+            }
+          },
+          "entities": [
+            {
+              "id": "person_nari",
+              "name": "나리",
+              "metadata": {
+                "type": "person",
+                "description": "항구 조사관이자 항해일지 작성자.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_doyun",
+              "name": "도윤",
+              "metadata": {
+                "type": "person",
+                "description": "세관 서기. 같은 이름의 다른 인물과 구분해야 한다.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_harbor",
+              "name": "검은 항구",
+              "metadata": {
+                "type": "place",
+                "description": "캠페인의 주요 항구.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_lighthouse",
+              "name": "북쪽 등대",
+              "metadata": {
+                "type": "place",
+                "description": "항구 북쪽 절벽의 등대.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_east_gate",
+              "name": "동문 초소",
+              "metadata": {
+                "type": "place",
+                "description": "세관과 연결된 동쪽 출입구.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_west_gate",
+              "name": "서문 초소",
+              "metadata": {
+                "type": "place",
+                "description": "창고 지구와 바다를 잇는 서쪽 출입구.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "artifact_silver_bell",
+              "name": "은종",
+              "metadata": {
+                "type": "artifact",
+                "description": "등대에 설치된 경보 종.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "artifact_tide_ledger",
+              "name": "수위표 장부",
+              "metadata": {
+                "type": "artifact",
+                "description": "조수와 항만 수문 기록을 담는 장부.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "faction_black_sail",
+              "name": "검은 돛단배",
+              "metadata": {
+                "type": "faction",
+                "description": "부두를 오가는 밀수 의혹 선단.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "faction_salt_guard",
+              "name": "소금 경비대",
+              "metadata": {
+                "type": "faction",
+                "description": "항구 방어와 초소 순찰을 맡은 경비대.",
+                "aliases": []
+              }
+            }
+          ],
+          "memories": [
+            {
+              "id": "m_s01_01",
+              "kind": "event",
+              "content": "해질 무렵 검은 항구에 폭우가 시작되어 부두와 등대 길을 적셨다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "weather": "heavy_rain",
+                "certainty": "direct"
+              },
+              "entity_ids": [
+                "place_harbor",
+                "place_lighthouse"
+              ]
+            },
+            {
+              "id": "m_s01_02",
+              "kind": "event",
+              "content": "폭우가 이어져 북쪽 창고의 짐수레가 평소보다 늦게 출발했다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "cause": "rain",
+                "delay_minutes": 40
+              },
+              "entity_ids": [
+                "place_harbor",
+                "person_nari"
+              ]
+            },
+            {
+              "id": "m_s01_03",
+              "kind": "claim",
+              "content": "짙은 안개와 은종의 두 차례 울림은 같은 시간대에 관측됐지만, 서로의 원인이라는 증거는 없다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "relation": "correlation_only",
+                "causal_link": "none"
+              },
+              "entity_ids": [
+                "place_harbor",
+                "artifact_silver_bell"
+              ]
+            },
+            {
+              "id": "m_s01_04",
+              "kind": "event",
+              "content": "세관 서기 도윤은 검은 돛단배의 적재 목록에 없는 납 봉인을 목격했다고 나리에게 진술했다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "reported_by": "person_doyun",
+                "certainty": "reported"
+              },
+              "entity_ids": [
+                "person_doyun",
+                "faction_black_sail",
+                "person_nari"
+              ]
+            },
+            {
+              "id": "m_s01_05",
+              "kind": "event",
+              "content": "폭우로 북쪽 등대 길의 보급 수레가 늦어져 봉화용 도화선 상자가 젖었다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "delay_minutes": 40
+              },
+              "entity_ids": [
+                "place_lighthouse"
+              ]
+            },
+            {
+              "id": "m_s01_06",
+              "kind": "claim",
+              "content": "나리는 도윤의 납 봉인 진술을 기록했으나, 봉인의 소유자를 확정하지 않았다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "resolution": "unresolved",
+                "owner": {
+                  "state": "unknown"
+                }
+              },
+              "entity_ids": [
+                "person_nari",
+                "person_doyun"
+              ]
+            },
+            {
+              "id": "m_s01_07",
+              "kind": "event",
+              "content": "동문 초소에는 정규 경비가 있었고 근무일지에 교대 서명이 남았다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "guarded": true
+              },
+              "entity_ids": [
+                "place_east_gate",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s01_08",
+              "kind": "claim",
+              "content": "한 어부는 서문 초소가 비어 있었다고 말했지만, 그 시각의 교대표는 아직 발견되지 않았다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "source_quality": "rumor",
+                "resolution": "unresolved"
+              },
+              "entity_ids": [
+                "place_west_gate"
+              ]
+            },
+            {
+              "id": "m_s01_09",
+              "kind": "event",
+              "content": "수위표 장부 첫 장이 항구 기록실에서 찢긴 채 발견됐다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "missing_page": true
+              },
+              "entity_ids": [
+                "artifact_tide_ledger",
+                "place_harbor"
+              ]
+            },
+            {
+              "id": "m_s01_10",
+              "kind": "claim",
+              "content": "어부가 바다 쪽에서 청색 섬광을 보았다고 보고했으며 등대지기는 확인하지 못했다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "support": "disputed",
+                "resolution": "unresolved"
+              },
+              "entity_ids": [
+                "place_lighthouse"
+              ]
+            },
+            {
+              "id": "m_s01_11",
+              "kind": "commitment",
+              "content": "나리는 다음 조수 전에 서문 교대표와 찢긴 수위표 장부를 대조하기로 했다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "owner": "person_nari",
+                "due": "2025-02-03"
+              },
+              "entity_ids": [
+                "person_nari",
+                "artifact_tide_ledger"
+              ]
+            },
+            {
+              "id": "m_s01_12",
+              "kind": "event",
+              "content": "등대지기는 안개가 짙었지만 은종 소리가 선명히 들렸다고 적었다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "sound": "silver_bell",
+                "visibility": "low"
+              },
+              "entity_ids": [
+                "place_lighthouse",
+                "artifact_silver_bell"
+              ]
+            }
+          ],
+          "links": [
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s01_01"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s01_05"
+              },
+              "metadata": {
+                "basis": "폭우로 도화선 보급 지연"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s01_01"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s01_02"
+              },
+              "metadata": {
+                "basis": "폭우로 운송 지연"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "session-02",
+      "label": "2막 · 늦은 봉화",
+      "records": [
+        {
+          "space_id": "game-main",
+          "evidence": {
+            "source_type": "game_session",
+            "content": "등대지기와 경비대 교대 기록: 비로 젖은 도화선에 불이 붙지 않아 북쪽 봉화가 늦게 올랐다. 늦은 봉화를 기다리느라 순찰대가 서문 교대 지점에 제시간에 도착하지 못했다. 검은 돛단배의 선원들은 펌프 기름통 하나를 지하 통로로 옮겼다. 항만 경비대장 혜진은 기름이 등대용이라고 보고했으나, 펌프 담당자는 통이 비어 있었다고 증언했다. 붉은 물결 조합은 내일 밤 밀수선을 찾겠다고 공개 약속했다. 세관 조사관 백은 창고 장부에 접근했고 서기 지수는 봉인 목록 사본을 맡았다. 뱃사공 아라는 같은 시각 다른 배가 출항했다고 확인했다.",
+            "metadata": {
+              "session": "02",
+              "language": "ko"
+            }
+          },
+          "entities": [
+            {
+              "id": "faction_red_current",
+              "name": "붉은 물결 조합",
+              "metadata": {
+                "type": "faction",
+                "description": "밀수선 추적을 약속한 선원 조합.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_hyejin",
+              "name": "혜진",
+              "metadata": {
+                "type": "person",
+                "description": "소금 경비대장.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_baek",
+              "name": "백 조사관",
+              "metadata": {
+                "type": "person",
+                "description": "세관 장부 조사관.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_jisu",
+              "name": "지수",
+              "metadata": {
+                "type": "person",
+                "description": "세관 서기이자 봉인 목록 사본 관리자.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_ara",
+              "name": "아라",
+              "metadata": {
+                "type": "person",
+                "description": "동쪽 부두의 뱃사공.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_customs_house",
+              "name": "세관 창고",
+              "metadata": {
+                "type": "place",
+                "description": "납 봉인과 장부를 보관하는 건물.",
+                "aliases": []
+              }
+            }
+          ],
+          "memories": [
+            {
+              "id": "m_s02_01",
+              "kind": "event",
+              "content": "짐수레가 늦게 도착하고 도화선이 젖어 북쪽 등대의 봉화가 예정 시각보다 늦게 올랐다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "delay_minutes": 35,
+                "cause": "wet_fuse"
+              },
+              "entity_ids": [
+                "place_lighthouse"
+              ]
+            },
+            {
+              "id": "m_s02_02",
+              "kind": "event",
+              "content": "늦은 봉화 때문에 경비 순찰대가 서문 교대 지점에 예정 시각보다 늦게 도착했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "patrol_delay_minutes": 25
+              },
+              "entity_ids": [
+                "place_west_gate",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s02_03",
+              "kind": "claim",
+              "content": "검은 돛단배 선원은 펌프 기름통이 등대 보수용이었다고 주장했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "support": "disputed",
+                "speaker": "faction_black_sail"
+              },
+              "entity_ids": [
+                "faction_black_sail",
+                "place_lighthouse"
+              ]
+            },
+            {
+              "id": "m_s02_04",
+              "kind": "event",
+              "content": "검은 돛단배 선원 둘이 표시 없는 기름통 하나를 지하 통로로 옮기는 모습이 부두 일지에 기록됐다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "cargo": "pump_oil",
+                "count": 1
+              },
+              "entity_ids": [
+                "faction_black_sail",
+                "place_harbor"
+              ]
+            },
+            {
+              "id": "m_s02_05",
+              "kind": "event",
+              "content": "항만 경비대장 혜진이 기름통을 등대 보수용으로 분류했으나 펌프 담당자는 통이 비어 있었다고 진술했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "conflicting_reports": true
+              },
+              "entity_ids": [
+                "person_hyejin",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s02_06",
+              "kind": "commitment",
+              "content": "붉은 물결 조합은 다음 밤 밀수선의 이름과 입항 시각을 찾아내겠다고 공개 약속했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "owner": "faction_red_current",
+                "due": "2025-02-05"
+              },
+              "entity_ids": [
+                "faction_red_current"
+              ]
+            },
+            {
+              "id": "m_s02_07",
+              "kind": "event",
+              "content": "조사관 백은 세관 창고 장부를 열람해 납 봉인 기록을 확인했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "access": "authorized"
+              },
+              "entity_ids": [
+                "person_baek",
+                "place_customs_house"
+              ]
+            },
+            {
+              "id": "m_s02_08",
+              "kind": "event",
+              "content": "서기 지수는 납 봉인 목록의 사본을 봉인 봉투에 넣어 조사관 백에게 인계했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "chain_of_custody": "recorded"
+              },
+              "entity_ids": [
+                "person_jisu",
+                "person_baek"
+              ]
+            },
+            {
+              "id": "m_s02_09",
+              "kind": "event",
+              "content": "두 선원이 항만 펌프에 쓰일 기름을 지하 통로로 빼돌렸다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "quantity": "one oil cask",
+                "intent": "unknown"
+              },
+              "entity_ids": [
+                "faction_black_sail",
+                "place_harbor"
+              ]
+            },
+            {
+              "id": "m_s02_10",
+              "kind": "event",
+              "content": "뱃사공 아라는 폭우 뒤 두 번째 배가 정해진 시간에 동쪽 부두에서 출항한 것을 확인했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "departure": "on_time"
+              },
+              "entity_ids": [
+                "person_ara",
+                "place_east_gate"
+              ]
+            },
+            {
+              "id": "m_s02_11",
+              "kind": "claim",
+              "content": "백은 봉인 번호가 장부 사본과 일치한다고 했고 지수는 숫자 하나가 번져 판독이 불확실하다고 답했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "support": "disputed",
+                "resolution": "unresolved"
+              },
+              "entity_ids": [
+                "person_baek",
+                "person_jisu"
+              ]
+            },
+            {
+              "id": "m_s02_12",
+              "kind": "event",
+              "content": "경비대는 봉화가 늦었지만 동문 순찰 경로는 바꾸지 않았다고 보고했다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "route": "east_gate",
+                "changed": false
+              },
+              "entity_ids": [
+                "faction_salt_guard",
+                "place_east_gate"
+              ]
+            }
+          ],
+          "links": [
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s01_05"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s02_01"
+              },
+              "metadata": {
+                "basis": "지연된 수레와 젖은 도화선"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s02_01"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s02_02"
+              },
+              "metadata": {
+                "basis": "늦은 봉화 대기"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s02_09"
+              },
+              "relation": "related_to",
+              "to": {
+                "type": "memory",
+                "id": "m_s02_03"
+              },
+              "metadata": {
+                "basis": "기름통 행선에 대한 주장만 존재"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "session-03",
+      "label": "3막 · 잠긴 수문 아래",
+      "records": [
+        {
+          "space_id": "game-main",
+          "evidence": {
+            "source_type": "game_session",
+            "content": "지하 수로 탐사 기록: 기름을 잃은 항만 펌프가 멈추자 낮은 터널에 물이 차올랐다. 조사대는 잠수부가 수문을 열었다고 추정했지만, 경첩에는 조작 흔적이 없었다. 정보원 석은 검은 두건의 인물이 폭약 가루를 은종 받침에 문지르는 장면을 보았다고 주장했다. 인물의 얼굴은 가려져 신원은 알 수 없다. 해당 인물은 기록상 “후드를 쓴 사람”이라는 Mention으로 보존했다. 지하 기록실의 젖은 장부에서 푸른 인장이 찍힌 서류 조각이 나왔다. 붉은 물결 조합은 장부를 넘기지 말라고 요구했다. 항구 주민들은 늑대라는 별칭을 여러 사람에게 붙여 혼선이 생겼다.",
+            "metadata": {
+              "session": "03",
+              "language": "ko"
+            }
+          },
+          "entities": [
+            {
+              "id": "person_seok",
+              "name": "석",
+              "metadata": {
+                "type": "person",
+                "description": "부두 정보원. 검은 가루 목격을 진술했다.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_underquay",
+              "name": "잠긴 수문 아래",
+              "metadata": {
+                "type": "place",
+                "description": "항구 지하 수로와 낮은 터널.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_archive",
+              "name": "지하 기록실",
+              "metadata": {
+                "type": "place",
+                "description": "수로 아래 오래된 기록 보관실.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_fishmarket",
+              "name": "생선 시장",
+              "metadata": {
+                "type": "place",
+                "description": "서문과 가까운 야외 시장.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "faction_lantern_guild",
+              "name": "등불 길드",
+              "metadata": {
+                "type": "faction",
+                "description": "옛 등대 관리인과 신호수들의 길드.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_north_island",
+              "name": "북쪽 섬",
+              "metadata": {
+                "type": "place",
+                "description": "옛 등대 관리인 집안의 고향.",
+                "aliases": []
+              }
+            }
+          ],
+          "memories": [
+            {
+              "id": "m_s03_01",
+              "kind": "event",
+              "content": "항만 펌프에 기름이 공급되지 않아 새벽 무렵 작동이 멈췄다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "state": "stopped",
+                "cause": "missing_oil"
+              },
+              "entity_ids": [
+                "place_harbor"
+              ]
+            },
+            {
+              "id": "m_s03_02",
+              "kind": "event",
+              "content": "펌프가 멈춘 뒤 낮은 지하 수로에 물이 차올랐다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "water_level": "rising"
+              },
+              "entity_ids": [
+                "place_underquay"
+              ]
+            },
+            {
+              "id": "m_s03_03",
+              "kind": "claim",
+              "content": "잠수부가 수문을 열었다는 추정이 나왔지만 경첩과 자물쇠에는 강제 개방 흔적이 없었다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "support": "disputed",
+                "causation": "unproven"
+              },
+              "entity_ids": [
+                "place_underquay"
+              ]
+            },
+            {
+              "id": "m_s03_04",
+              "kind": "event",
+              "content": "순찰대가 늦은 봉화 신호를 기다리느라 서문 초소에 예정된 교대보다 늦게 도착했다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "delay_reason": "late_beacon"
+              },
+              "entity_ids": [
+                "place_west_gate",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s03_05",
+              "kind": "mention",
+              "content": "수로 입구에서 목격된 “후드를 쓴 사람”. 얼굴과 이름은 확인되지 않았다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "identity": {
+                  "state": "unknown"
+                },
+                "mention_text": "후드를 쓴 사람"
+              },
+              "entity_ids": [],
+              "resolution": "unresolved"
+            },
+            {
+              "id": "m_s03_06",
+              "kind": "claim",
+              "content": "정보원 석은 후드를 쓴 사람이 은종 받침에 폭약 가루를 문질렀다고 진술했다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "witness": "person_seok",
+                "support": "reported"
+              },
+              "entity_ids": [
+                "person_seok",
+                "artifact_silver_bell"
+              ]
+            },
+            {
+              "id": "m_s03_07",
+              "kind": "event",
+              "content": "젖은 지하 기록실에서 푸른 인장이 찍힌 서류 조각이 발견됐다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "seal_color": "blue",
+                "document_fragment": true
+              },
+              "entity_ids": [
+                "place_archive"
+              ]
+            },
+            {
+              "id": "m_s03_08",
+              "kind": "claim",
+              "content": "푸른 인장은 북쪽 섬의 오래된 등대 관리인 집안과 관련 있다는 소문이 있으나 확인되지 않았다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "support": "rumor",
+                "resolution": "unresolved"
+              },
+              "entity_ids": [
+                "place_north_island"
+              ]
+            },
+            {
+              "id": "m_s03_09",
+              "kind": "event",
+              "content": "검은 가루가 은종 받침의 틈에서 발견됐고 경비대가 표본을 봉인했다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "substance": "unknown powder",
+                "chain_of_custody": "sealed"
+              },
+              "entity_ids": [
+                "artifact_silver_bell",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s03_10",
+              "kind": "commitment",
+              "content": "정보원 석은 다음 조수 전에 후드를 쓴 사람의 이동 경로를 확인하겠다고 약속했다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "owner": "person_seok",
+                "due": "2025-02-09"
+              },
+              "entity_ids": [
+                "person_seok"
+              ]
+            },
+            {
+              "id": "m_s03_11",
+              "kind": "claim",
+              "content": "부두 사람들은 “늑대”라는 별칭을 검은 돛단배 선장과 수로의 후드 인물 모두에게 사용했다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "alias_ambiguous": true,
+                "identity": {
+                  "state": "unknown"
+                }
+              },
+              "entity_ids": [
+                "faction_black_sail"
+              ]
+            },
+            {
+              "id": "m_s03_12",
+              "kind": "event",
+              "content": "붉은 물결 조합 대표가 푸른 인장 조각의 인도를 요구했으나 조사대는 인계하지 않았다.",
+              "occurred_at": "2025-02-03T20:00:00Z",
+              "data": {
+                "transfer": false
+              },
+              "entity_ids": [
+                "faction_red_current",
+                "place_archive"
+              ]
+            }
+          ],
+          "links": [
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s02_09"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s03_01"
+              },
+              "metadata": {
+                "basis": "펌프 기름의 유출"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s03_01"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s03_02"
+              },
+              "metadata": {
+                "basis": "펌프 정지 후 침수"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s02_02"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s03_04"
+              },
+              "metadata": {
+                "basis": "순찰 이동 시간 지연"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s03_07"
+              },
+              "relation": "supports",
+              "to": {
+                "type": "memory",
+                "id": "m_s03_08"
+              },
+              "metadata": {
+                "basis": "인장 조각은 발견됐으나 소문 자체는 미확인"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "session-04",
+      "label": "4막 · 끊어진 경보",
+      "records": [
+        {
+          "space_id": "game-main",
+          "evidence": {
+            "source_type": "game_session",
+            "content": "북쪽 창고와 지하 기록실 감정 기록: 지하 수로의 물이 기록실까지 번져 수위표 장부의 잉크가 녹았다. 장부 일부로 만들던 암호표는 판독할 수 없게 됐다. 감정관 율은 폭약 가루가 은종 받침의 작은 균열을 넓혔다고 확인했다. 타오 신호수는 금이 간 종이 더는 경보를 울리지 못해 경비대가 서문을 비워둔 채 창고 쪽으로 이동했다고 설명했다. 조사관은 후드 인물의 신원이 아직 모른다고 적었다. 납 봉인에 대한 이전 서기 진술은 번호 판독 오류가 확인되어 정정된다. 붉은 물결 조합 소속 상인이 등대 약품을 훔쳤다는 소문은 반증됐다. 북쪽 섬 지도에는 낡은 횃불길이 표시됐다.",
+            "metadata": {
+              "session": "04",
+              "language": "ko"
+            }
+          },
+          "entities": [
+            {
+              "id": "person_yul",
+              "name": "율",
+              "metadata": {
+                "type": "person",
+                "description": "검은 가루와 은종 균열을 감정한 조사관.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_taeo",
+              "name": "타오",
+              "metadata": {
+                "type": "person",
+                "description": "북쪽 등대 신호수.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "place_saltwarehouse",
+              "name": "소금 창고",
+              "metadata": {
+                "type": "place",
+                "description": "경비대가 은종 고장 뒤 이동한 창고.",
+                "aliases": []
+              }
+            }
+          ],
+          "memories": [
+            {
+              "id": "m_s04_01",
+              "kind": "event",
+              "content": "감정관 율은 은종 받침의 균열에 검은 가루가 박혀 있음을 확인했다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "lab_result": "powder embedded in crack"
+              },
+              "entity_ids": [
+                "person_yul",
+                "artifact_silver_bell"
+              ]
+            },
+            {
+              "id": "m_s04_02",
+              "kind": "event",
+              "content": "늦은 교대와 봉화 지연이 겹쳐 서문 초소의 경비가 비어 있는 시간대가 생겼다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "guard_gap_minutes": 18
+              },
+              "entity_ids": [
+                "place_west_gate",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s04_03",
+              "kind": "event",
+              "content": "균열 난 은종은 경보를 울리지 못했고 경비대가 서문 대신 창고 쪽으로 이동했다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "alarm_failed": true
+              },
+              "entity_ids": [
+                "artifact_silver_bell",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s04_04",
+              "kind": "claim",
+              "content": "조사관은 검은 가루를 바른 사람이 늑대일 수 있다고 기록했으나 아직 신원은 확정되지 않았다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "identity": {
+                  "state": "unknown"
+                },
+                "support": "hypothesis"
+              },
+              "entity_ids": []
+            },
+            {
+              "id": "m_s04_05",
+              "kind": "event",
+              "content": "신호수 타오는 후드 인물이 서문에서 북쪽 섬 방향의 횃불길로 사라졌다고 진술했다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "witness": "person_taeo",
+                "direction": "north_island"
+              },
+              "entity_ids": [
+                "person_taeo",
+                "place_north_island"
+              ]
+            },
+            {
+              "id": "m_s04_06",
+              "kind": "event",
+              "content": "침수된 지하 기록실에서 수위표 장부의 잉크가 번지고 일부 글자가 녹아내렸다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "damage": "ink dissolved"
+              },
+              "entity_ids": [
+                "place_archive",
+                "artifact_tide_ledger"
+              ]
+            },
+            {
+              "id": "m_s04_07",
+              "kind": "claim",
+              "content": "장부 일부가 판독 불가가 되어 조수 암호표의 원본 내용을 복원할 수 없게 됐다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "cipher_status": "unrecoverable"
+              },
+              "entity_ids": [
+                "artifact_tide_ledger"
+              ]
+            },
+            {
+              "id": "m_s04_08",
+              "kind": "event",
+              "content": "감정관 율은 등대 약품 상자에서 붉은 물결 조합의 표식이 나오지 않았음을 확인했다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "faction_link": "none",
+                "result": "rumor disproved"
+              },
+              "entity_ids": [
+                "person_yul",
+                "faction_red_current"
+              ]
+            },
+            {
+              "id": "m_s04_09",
+              "kind": "claim",
+              "content": "“붉은 물결이 등대 약품을 훔쳤다”는 소문은 상자 봉인과 출입 기록으로 반증됐다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "support": "disputed",
+                "false_rumor": true
+              },
+              "entity_ids": [
+                "faction_red_current",
+                "place_lighthouse"
+              ]
+            },
+            {
+              "id": "m_s04_10",
+              "kind": "commitment",
+              "content": "율은 검은 가루 표본과 등대 관리인 명부를 대조해 다음 세션에 보고하기로 했다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "owner": "person_yul",
+                "due": "2025-02-16"
+              },
+              "entity_ids": [
+                "person_yul",
+                "faction_lantern_guild"
+              ]
+            },
+            {
+              "id": "m_s04_11",
+              "kind": "event",
+              "content": "북쪽 섬 지도에 등대에서 어촌으로 이어지는 낡은 횃불길이 표시돼 있었다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "route": "old_torch_path"
+              },
+              "entity_ids": [
+                "place_north_island"
+              ]
+            },
+            {
+              "id": "m_s04_12",
+              "kind": "claim",
+              "content": "게시판에 조사관 백의 출입 암호가 노출됐다는 익명 제보가 있었으나, 종이는 회수되지 않았고 제보는 거짓으로 판명됐다.",
+              "occurred_at": "2025-02-04T20:00:00Z",
+              "data": {
+                "secret": "unverified code leak claim",
+                "support": "disputed",
+                "false_leak": true
+              },
+              "entity_ids": [
+                "person_baek"
+              ]
+            }
+          ],
+          "links": [
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s03_02"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s04_06"
+              },
+              "metadata": {
+                "basis": "수로 침수로 기록실까지 물이 번짐"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s04_06"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s04_07"
+              },
+              "metadata": {
+                "basis": "잉크 손상으로 판독 불가"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s03_09"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s04_03"
+              },
+              "metadata": {
+                "basis": "가루가 균열을 악화시켜 종 고장"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s03_04"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s04_02"
+              },
+              "metadata": {
+                "basis": "지연된 순찰로 공백 발생"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s01_08"
+              },
+              "relation": "contradicts",
+              "to": {
+                "type": "memory",
+                "id": "m_s04_02"
+              },
+              "metadata": {
+                "basis": "후속 교대표로 공백 시간 확인"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s04_08"
+              },
+              "relation": "contradicts",
+              "to": {
+                "type": "memory",
+                "id": "m_s04_09"
+              },
+              "metadata": {
+                "basis": "약품 상자 조사 결과"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "session-05",
+      "label": "5막 · 늑대의 이름",
+      "records": [
+        {
+          "space_id": "game-main",
+          "evidence": {
+            "source_type": "game_session",
+            "content": "마지막 조수 전의 심문 기록: 북쪽 섬 지도와 옛 등대 명부를 대조한 결과, 후드 인물은 울프라는 전 관리인으로 특정됐다. 정보원 석은 얼굴을 알아봤고 타오의 횃불길 진술과도 일치했다. 울프는 검은 가루를 은종에 바르고 펌프 기름통을 훔친 일을 시인했으나, 납 봉인 절도는 부인했다. 조사관 백은 번진 숫자를 잘못 읽어 도윤이 납 봉인을 가져갔다고 오판했음을 정정했다. 도윤이라는 이름의 부두 노동자 도윤은 세관 서기와 다른 사람이다. 서문 경비 공백 중 밀수선이 들어왔고 생선 시장에서 증거 전달자가 붙잡혔다. 나리는 비공개 출입 암호가 게시판에 노출됐다는 주장에 따라 해당 암호를 폐기했다. 은종 수리와 펌프 기름 반환을 맡은 인물은 각각 약속을 기록했다.",
+            "metadata": {
+              "session": "05",
+              "language": "ko"
+            }
+          },
+          "entities": [
+            {
+              "id": "person_dal",
+              "name": "달",
+              "metadata": {
+                "type": "person",
+                "description": "붉은 물결 조합의 수리 담당자.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_wol",
+              "name": "울프",
+              "metadata": {
+                "type": "person",
+                "description": "세션 5에서 옛 명부와 증언으로 후드 인물과 동일성이 확인된 전 등대 관리인.",
+                "aliases": [
+                  "늑대"
+                ]
+              }
+            },
+            {
+              "id": "person_doyun_dock",
+              "name": "도윤",
+              "metadata": {
+                "type": "person",
+                "description": "부두 노동자이자 검은 돛단배의 선원. 세관 서기 도윤과 별개 인물.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_giseok",
+              "name": "기석",
+              "metadata": {
+                "type": "person",
+                "description": "서문 초소 경비대원.",
+                "aliases": []
+              }
+            },
+            {
+              "id": "person_miso",
+              "name": "미소",
+              "metadata": {
+                "type": "person",
+                "description": "생선 시장의 치료사이자 전령의 마지막 목격자.",
+                "aliases": []
+              }
+            }
+          ],
+          "memories": [
+            {
+              "id": "m_s05_01",
+              "kind": "event",
+              "content": "서문 경비 공백 동안 검은 돛단배의 소형 보트가 항구 안으로 들어왔다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "entry": "confirmed",
+                "route": "west_gate"
+              },
+              "entity_ids": [
+                "faction_black_sail",
+                "place_west_gate"
+              ]
+            },
+            {
+              "id": "m_s05_02",
+              "kind": "event",
+              "content": "조사관 백과 석은 북쪽 섬의 옛 명부와 얼굴 특징을 대조해 후드 인물이 전 등대 관리인 울프임을 확인했다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "identity": {
+                  "state": "resolved",
+                  "entity_id": "person_wol"
+                },
+                "basis": [
+                  "old_roster",
+                  "witness_match"
+                ]
+              },
+              "entity_ids": [
+                "person_baek",
+                "person_seok",
+                "person_wol"
+              ]
+            },
+            {
+              "id": "m_s05_03",
+              "kind": "claim",
+              "content": "울프는 검은 가루를 은종에 바르고 펌프 기름통을 옮겼다고 시인했으나 납 봉인을 훔친 일은 부인했다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "admitted": [
+                  "bell_sabotage",
+                  "oil_theft"
+                ],
+                "denied": [
+                  "lead_seal_theft"
+                ]
+              },
+              "entity_ids": [
+                "person_wol"
+              ]
+            },
+            {
+              "id": "m_s05_04",
+              "kind": "event",
+              "content": "경보가 울리지 않은 틈에 생선 시장 입구까지 밀수선 사람들이 들어왔다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "alarm_absent": true
+              },
+              "entity_ids": [
+                "place_fishmarket",
+                "faction_black_sail"
+              ]
+            },
+            {
+              "id": "m_s05_05",
+              "kind": "event",
+              "content": "밀수선 일당이 생선 시장에서 푸른 인장 서류를 전달하려던 전령을 붙잡았다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "victim": "courier",
+                "artifact": "blue_seal_fragment"
+              },
+              "entity_ids": [
+                "place_fishmarket",
+                "place_archive"
+              ]
+            },
+            {
+              "id": "m_s05_06",
+              "kind": "claim",
+              "content": "백은 번진 장부 번호를 잘못 읽어 세관 서기 도윤이 납 봉인을 가져갔다고 판단했음을 정정했다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "correction": "misread ledger digit",
+                "support": "corrected"
+              },
+              "entity_ids": [
+                "person_baek",
+                "person_doyun"
+              ]
+            },
+            {
+              "id": "m_s05_07",
+              "kind": "claim",
+              "content": "부두 노동자 도윤은 세관 서기 도윤과 동명이인이고 검은 돛단배의 선원으로 일한다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "same_name": true,
+                "distinct_entities": [
+                  "person_doyun",
+                  "person_doyun_dock"
+                ]
+              },
+              "entity_ids": [
+                "person_doyun_dock",
+                "faction_black_sail",
+                "person_doyun"
+              ]
+            },
+            {
+              "id": "m_s05_08",
+              "kind": "event",
+              "content": "나리는 암호 노출 제보에 예방 조치로 기존 암호를 폐기했다. 조사 후 게시판에 적혔다는 내용은 가짜 문자열로 확인됐다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "secret_rotation": true,
+                "reported_leak": false
+              },
+              "entity_ids": [
+                "person_nari",
+                "faction_salt_guard"
+              ]
+            },
+            {
+              "id": "m_s05_09",
+              "kind": "commitment",
+              "content": "은종 수리는 타오가, 펌프 기름 반환은 붉은 물결 조합이 맡기로 했다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "owners": [
+                  "person_taeo",
+                  "faction_red_current"
+                ],
+                "due": "2025-02-20"
+              },
+              "entity_ids": [
+                "person_taeo",
+                "faction_red_current",
+                "artifact_silver_bell"
+              ]
+            },
+            {
+              "id": "m_s05_10",
+              "kind": "event",
+              "content": "뱃사공 아라는 밀수선의 청색 섬광 신호가 수문 쪽에서 나온 것을 직접 확인했다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "signal": "blue_flash",
+                "witness": "person_ara"
+              },
+              "entity_ids": [
+                "person_ara",
+                "place_underquay"
+              ]
+            },
+            {
+              "id": "m_s05_11",
+              "kind": "claim",
+              "content": "조사대는 푸른 인장 서류가 등불 길드의 오래된 명부와 연결된다고 보았지만 문서의 전체 내용은 아직 미확인이다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "support": "supported",
+                "resolution": "unresolved"
+              },
+              "entity_ids": [
+                "faction_lantern_guild",
+                "place_archive"
+              ]
+            },
+            {
+              "id": "m_s05_12",
+              "kind": "commitment",
+              "content": "나리는 수로와 서문 경비 공백을 다시 조사하고 전령의 행방을 다음 조수 전에 확인하기로 했다.",
+              "occurred_at": "2025-02-05T20:00:00Z",
+              "data": {
+                "owner": "person_nari",
+                "due": "2025-02-22"
+              },
+              "entity_ids": [
+                "person_nari",
+                "place_west_gate"
+              ]
+            }
+          ],
+          "links": [
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s04_02"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s05_01"
+              },
+              "metadata": {
+                "basis": "서문 경비 공백이 보트 진입 기회를 만듦"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s04_03"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s05_04"
+              },
+              "metadata": {
+                "basis": "은종 경보 실패"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s05_04"
+              },
+              "relation": "enables",
+              "to": {
+                "type": "memory",
+                "id": "m_s05_05"
+              },
+              "metadata": {
+                "basis": "시장 진입 후 전령 체포"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s03_05"
+              },
+              "relation": "related_to",
+              "to": {
+                "type": "memory",
+                "id": "m_s05_02"
+              },
+              "metadata": {
+                "basis": "후속 신원 확인 대상"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s04_05"
+              },
+              "relation": "supports",
+              "to": {
+                "type": "memory",
+                "id": "m_s05_02"
+              },
+              "metadata": {
+                "basis": "이동 경로와 북쪽 섬 명부 대조"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s04_12"
+              },
+              "relation": "causes",
+              "to": {
+                "type": "memory",
+                "id": "m_s05_08"
+              },
+              "metadata": {
+                "basis": "암호 노출로 회전 필요"
+              }
+            },
+            {
+              "from": {
+                "type": "memory",
+                "id": "m_s01_06"
+              },
+              "relation": "contradicts",
+              "to": {
+                "type": "memory",
+                "id": "m_s05_06"
+              },
+              "metadata": {
+                "basis": "잘못 읽은 번진 번호에 대한 정정"
+              }
+            }
+          ]
+        },
+        {
+          "space_id": "game-decoy",
+          "evidence": {
+            "source_type": "game_session",
+            "content": "별도 캠페인 기록: 은빛 고개에서 나리라는 다른 사람이 겨울 대상단을 이끌었다. 이 평행 세계 인물은 검은 항구 사건과 관계없다.",
+            "metadata": {
+              "session": "parallel-decoy",
+              "language": "ko"
+            }
+          },
+          "entities": [
+            {
+              "id": "decoy_nari",
+              "name": "나리",
+              "metadata": {
+                "type": "person",
+                "description": "평행 캠페인의 대상단장. 검은 항구의 조사관과 무관.",
+                "aliases": []
+              }
+            }
+          ],
+          "memories": [
+            {
+              "id": "decoy_m01",
+              "kind": "event",
+              "content": "은빛 고개의 대상단장 나리가 눈보라를 피해 산길을 바꿨다.",
+              "occurred_at": "2025-02-01T20:00:00Z",
+              "data": {
+                "campaign": "silver_pass"
+              },
+              "entity_ids": [
+                "decoy_nari"
+              ]
+            },
+            {
+              "id": "decoy_m02",
+              "kind": "claim",
+              "content": "은빛 고개의 나리는 검은 항구의 항해조사관 나리와 다른 인물이다.",
+              "occurred_at": "2025-02-02T20:00:00Z",
+              "data": {
+                "cross_space_decoy": true
+              },
+              "entity_ids": [
+                "decoy_nari"
+              ]
+            }
+          ],
+          "links": []
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "type": "correct",
+      "input": {
+        "space_id": "game-main",
+        "memory_id": "m_s01_06",
+        "replacement": {
+          "id": "m_correct_01",
+          "kind": "claim",
+          "content": "도윤의 진술은 납 봉인 목격을 말했을 뿐, 그가 봉인을 소유하거나 가져갔다는 근거는 없다.",
+          "data": {
+            "owner": {
+              "state": "unknown"
+            },
+            "correction": "do not infer ownership"
+          },
+          "resolution": "unresolved",
+          "support": "disputed",
+          "entity_ids": [
+            "person_doyun",
+            "person_nari"
+          ]
+        },
+        "evidence": {
+          "source_type": "correction",
+          "content": "세션 5에서 장부 숫자 오독이 확인되어 소유자 추정을 철회했다."
+        }
+      }
+    },
+    {
+      "type": "correct",
+      "input": {
+        "space_id": "game-main",
+        "memory_id": "m_s03_03",
+        "replacement": {
+          "id": "m_correct_02",
+          "kind": "claim",
+          "content": "수문 경첩에 강제 개방 흔적은 없으며 잠수부가 수문을 열었다는 가설은 증거로 입증되지 않았다.",
+          "data": {
+            "support": "disputed",
+            "causation": "unproven"
+          },
+          "resolution": "unresolved",
+          "support": "disputed",
+          "entity_ids": [
+            "place_underquay"
+          ]
+        },
+        "evidence": {
+          "source_type": "correction",
+          "content": "후속 감정에서도 수문 조작 흔적을 확인하지 못했다."
+        }
+      }
+    },
+    {
+      "type": "forget",
+      "input": {
+        "space_id": "game-main",
+        "memory_id": "m_s04_12"
+      }
+    },
+    {
+      "type": "resolve",
+      "input": {
+        "space_id": "game-main",
+        "mention_id": "m_s03_05",
+        "entity_id": "person_wol"
+      }
+    }
+  ],
+  "queries": [
+    {
+      "id": "q_causal_01",
+      "category": "causal",
+      "query": "폭우에서 서문으로 밀수선이 들어오기까지의 인과 경로를 찾아라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_01",
+        "m_s01_05",
+        "m_s02_01",
+        "m_s02_02",
+        "m_s03_04",
+        "m_s04_02",
+        "m_s05_01"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "relations": [
+            "causes",
+            "causes",
+            "causes",
+            "causes",
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_02",
+      "category": "causal",
+      "query": "짐수레 지연이 등대 봉화와 경비 순찰에 미친 결과는?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_05",
+        "m_s02_01",
+        "m_s02_02"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02"
+          ],
+          "relations": [
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_03",
+      "category": "causal",
+      "query": "늦은 봉화가 서문 경비 공백을 만든 과정은?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s02_02",
+        "m_s03_04",
+        "m_s04_02"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02"
+          ],
+          "relations": [
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_04",
+      "category": "causal",
+      "query": "서문 경비 공백이 실제로 어떤 진입 기회를 만들었나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s04_02",
+        "m_s05_01"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "relations": [
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_05",
+      "category": "causal",
+      "query": "펌프 기름 도난에서 암호표 손실까지의 원인 사슬은?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s02_09",
+        "m_s03_01",
+        "m_s03_02",
+        "m_s04_06",
+        "m_s04_07"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "relations": [
+            "causes",
+            "causes",
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_06",
+      "category": "causal",
+      "query": "기름통 유출과 기록실 침수 사이의 인과 경로는?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s02_09",
+        "m_s03_01",
+        "m_s03_02",
+        "m_s04_06"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06"
+          ],
+          "relations": [
+            "causes",
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_07",
+      "category": "causal",
+      "query": "수로 침수가 수위표 장부와 암호표에 준 피해는?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_02",
+        "m_s04_06",
+        "m_s04_07"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "relations": [
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_08",
+      "category": "causal",
+      "query": "은종의 검은 가루가 경보와 시장 침입으로 이어진 경로는?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_09",
+        "m_s04_03",
+        "m_s05_04"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04"
+          ],
+          "relations": [
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_09",
+      "category": "causal",
+      "query": "경보 실패 뒤 전령 체포까지 어떤 단계가 있었나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s04_03",
+        "m_s05_04",
+        "m_s05_05"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "relations": [
+            "causes",
+            "enables"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_10",
+      "category": "causal",
+      "query": "검은 가루 표본에서 전령 체포까지의 전체 경로는?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_09",
+        "m_s04_03",
+        "m_s05_04",
+        "m_s05_05"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "relations": [
+            "causes",
+            "causes",
+            "enables"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_11",
+      "category": "causal",
+      "query": "폭우가 서로 다른 운송과 등대 보급 결과를 일으켰는지 확인하라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_01",
+        "m_s01_02",
+        "m_s01_05"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s01_01",
+            "m_s01_02"
+          ],
+          "relations": [
+            "causes"
+          ]
+        },
+        {
+          "nodes": [
+            "m_s01_01",
+            "m_s01_05"
+          ],
+          "relations": [
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_12",
+      "category": "causal",
+      "query": "생선 시장에서 붙잡힌 전령에게 일어난 일을 추적하라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_09",
+        "m_s04_03",
+        "m_s05_04",
+        "m_s05_05"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s03_09",
+            "m_s04_03",
+            "m_s05_04",
+            "m_s05_05"
+          ],
+          "relations": [
+            "causes",
+            "causes",
+            "enables"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_diag_01",
+      "category": "causal",
+      "query": "검은 돛단배의 소형 보트가 항구 안으로 들어온 사건을 찾아라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_01",
+        "m_s01_05",
+        "m_s02_01",
+        "m_s02_02",
+        "m_s03_04",
+        "m_s04_02",
+        "m_s05_01"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s01_01",
+            "m_s01_05",
+            "m_s02_01",
+            "m_s02_02",
+            "m_s03_04",
+            "m_s04_02",
+            "m_s05_01"
+          ],
+          "relations": [
+            "causes",
+            "causes",
+            "causes",
+            "causes",
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_causal_diag_02",
+      "category": "causal",
+      "query": "판독 불가가 된 암호표의 원인을 추적하라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s02_09",
+        "m_s03_01",
+        "m_s03_02",
+        "m_s04_06",
+        "m_s04_07"
+      ],
+      "expected_paths": [
+        {
+          "nodes": [
+            "m_s02_09",
+            "m_s03_01",
+            "m_s03_02",
+            "m_s04_06",
+            "m_s04_07"
+          ],
+          "relations": [
+            "causes",
+            "causes",
+            "causes",
+            "causes"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "q_negative_01",
+      "category": "negative",
+      "query": "안개와 은종이 같이 관측됐으므로 종이 안개를 일으킨 것인가?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_03"
+      ],
+      "excluded_ids": [
+        "m_s01_12"
+      ],
+      "expected_paths": []
+    },
+    {
+      "id": "q_negative_02",
+      "category": "negative",
+      "query": "잠수부가 수문을 열었다고 입증됐나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_correct_02"
+      ],
+      "excluded_ids": [
+        "m_s03_03"
+      ],
+      "expected_paths": []
+    },
+    {
+      "id": "q_negative_03",
+      "category": "negative",
+      "query": "붉은 물결 조합이 등대 약품을 훔쳤나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s04_08",
+        "m_s04_09"
+      ],
+      "expected_paths": []
+    },
+    {
+      "id": "q_negative_04",
+      "category": "negative",
+      "query": "게시판 암호 노출 기억을 다시 검색해 보안 위험을 그대로 반환하나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s05_08"
+      ],
+      "excluded_ids": [
+        "m_s04_12"
+      ]
+    },
+    {
+      "id": "q_identity_01",
+      "category": "identity",
+      "query": "후드를 쓴 사람은 누구인가?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_05",
+        "m_s05_02"
+      ],
+      "entity_id": "person_wol"
+    },
+    {
+      "id": "q_identity_02",
+      "category": "identity",
+      "query": "검은 가루를 바른 인물의 신원은 어떻게 확인됐나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_05",
+        "m_s05_02",
+        "m_s05_03"
+      ],
+      "entity_id": "person_wol"
+    },
+    {
+      "id": "q_identity_03",
+      "category": "identity",
+      "query": "세관 서기 도윤과 부두 노동자 도윤을 구분하라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_04",
+        "m_s05_06",
+        "m_s05_07"
+      ],
+      "entity_id": "person_doyun"
+    },
+    {
+      "id": "q_relationship_01",
+      "category": "relationship",
+      "query": "나리와 서기 도윤은 어떤 사건에서 함께 언급되나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_04",
+        "m_correct_01"
+      ],
+      "entity_id": "person_nari"
+    },
+    {
+      "id": "q_relationship_02",
+      "category": "relationship",
+      "query": "은종과 경비대의 관계, 고장 결과는?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_09",
+        "m_s04_01",
+        "m_s04_03",
+        "m_s05_09"
+      ],
+      "entity_id": "artifact_silver_bell"
+    },
+    {
+      "id": "q_relationship_03",
+      "category": "relationship",
+      "query": "조사관 백과 서기 지수는 봉인 기록을 어떻게 다뤘나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s02_07",
+        "m_s02_08",
+        "m_s02_11",
+        "m_s05_06"
+      ],
+      "entity_id": "person_baek"
+    },
+    {
+      "id": "q_temporal_01",
+      "category": "temporal",
+      "query": "2월 1일부터 2월 5일까지 서문과 봉화에 관한 기록을 시간순으로 찾아라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_08",
+        "m_s02_01",
+        "m_s02_02",
+        "m_s03_04"
+      ],
+      "from": "2025-02-01T00:00:00Z",
+      "to": "2025-02-05T23:59:59Z"
+    },
+    {
+      "id": "q_temporal_02",
+      "category": "temporal",
+      "query": "2월 3일부터 2월 4일까지 침수와 장부 손상이 어떻게 진행됐나?",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s03_02",
+        "m_s04_06",
+        "m_s04_07"
+      ],
+      "from": "2025-02-03T00:00:00Z",
+      "to": "2025-02-04T23:59:59Z"
+    },
+    {
+      "id": "q_negative_05",
+      "category": "negative",
+      "query": "평행 캠페인의 대상단장 나리를 검은 항구 조사관 나리의 기억으로 섞지 말라",
+      "limit": 20,
+      "expected_support_ids": [
+        "m_s01_11"
+      ],
+      "entity_id": "person_nari",
+      "excluded_ids": [
+        "decoy_m01",
+        "decoy_m02"
+      ]
+    }
+  ],
+  "entity_decisions": [
+    {
+      "id": "ed_known_identity",
+      "mention": "후드를 쓴 사람",
+      "as_of_session": "session-05",
+      "candidate_entity_ids": [
+        "person_wol",
+        "person_taeo",
+        "person_seok"
+      ],
+      "expected_entity_id": "person_wol"
+    },
+    {
+      "id": "ed_alias_wolf",
+      "mention": "늑대",
+      "as_of_session": "session-05",
+      "candidate_entity_ids": [
+        "person_wol",
+        "person_doyun_dock"
+      ],
+      "expected_entity_id": "person_wol"
+    },
+    {
+      "id": "ed_unknown_powder",
+      "mention": "검은 가루를 은종에 바른 사람",
+      "as_of_session": "session-03",
+      "candidate_entity_ids": [
+        "person_seok",
+        "person_nari",
+        "person_baek"
+      ],
+      "expected_entity_id": null
+    },
+    {
+      "id": "ed_same_name_doyun",
+      "mention": "장부의 번진 숫자를 확인한 세관 서기 도윤",
+      "as_of_session": "session-05",
+      "candidate_entity_ids": [
+        "person_doyun",
+        "person_doyun_dock",
+        "person_jisu"
+      ],
+      "expected_entity_id": "person_doyun",
+      "attributes": {
+        "role": "세관 서기"
+      }
+    },
+    {
+      "id": "ed_new_npc",
+      "mention": "노란 장갑을 낀 신호수",
+      "as_of_session": "session-02",
+      "candidate_entity_ids": [
+        "person_hyejin",
+        "person_ara",
+        "person_doyun"
+      ],
+      "expected_entity_id": null
+    },
+    {
+      "id": "ed_ambiguous_captain",
+      "mention": "늑대라고 불린 선장",
+      "as_of_session": "session-03",
+      "candidate_entity_ids": [
+        "person_seok",
+        "person_nari",
+        "person_hyejin"
+      ],
+      "expected_entity_id": null
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+name: 버그 보고
+description: 합성 데이터로 재현 가능한 오류를 기록합니다.
+body:
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 재현 단계와 실행 버전
+      description: 키와 실제 캠페인 데이터는 첨부하지 마세요.
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: 예상 결과와 실제 결과
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: 관련 로그와 검사 결과

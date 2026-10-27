@@ -1,0 +1,15 @@
+name: 기능 제안
+description: 플레이 상황과 수용 기준을 제안합니다.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 해결할 플레이 또는 운영 문제
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 제안 동작과 검증 기준
+    validations:
+      required: true

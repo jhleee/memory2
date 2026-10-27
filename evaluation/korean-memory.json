@@ -1,0 +1,35 @@
+{
+  "description": "개발 검증용 고정 한국어 합성 데이터. 모델의 일반 성능을 보장하는 벤치마크가 아님.",
+  "memories": [
+    { "id": "m_transfer", "kind": "event", "content": "리아가 금고를 여는 열쇠를 미나에게 건넸다.", "occurred_at": "2026-10-01T09:00:00Z", "entity_ids": ["lia", "mina"] },
+    { "id": "m_stack", "kind": "claim", "content": "컨텍스트 메모리 도구의 서버는 Node.js와 TypeScript로 구현하고 데이터를 SQLite 파일에 보관한다." },
+    { "id": "m_vegetarian", "kind": "note", "content": "준호는 고기를 먹지 않으며 식당을 고를 때 채소 위주 요리를 선호한다.", "entity_ids": ["junho"] },
+    { "id": "m_deadline", "kind": "commitment", "content": "수진은 금요일 오후까지 월간 매출 보고서를 작성해서 재무팀에 보내기로 약속했다.", "entity_ids": ["sujin"] },
+    { "id": "m_outage", "kind": "event", "content": "결제 서비스에서 요청 대기 시간이 길어졌으며 원인은 데이터베이스 연결 풀 고갈이었다." },
+    { "id": "m_backup", "kind": "note", "content": "운영 중인 SQLite 데이터는 온라인 백업 API로 복사하고 복원한 파일의 무결성을 점검한다." },
+    { "id": "m_privacy", "kind": "claim", "content": "API 인증 정보는 환경 변수로 전달하며 소스 코드나 저장소에 올리지 않는다." },
+    { "id": "m_meeting", "kind": "event", "content": "리아와 미나는 화요일 오전에 도서관에서 만나 배포 계획을 논의했다.", "occurred_at": "2026-10-02T09:00:00Z", "entity_ids": ["lia", "mina"] },
+    { "id": "m_budget", "kind": "claim", "content": "새 대시보드 개발에 사용할 수 있는 금액은 최대 삼백만 원이다." },
+    { "id": "m_shipping", "kind": "event", "content": "주문한 장비의 도착 예정일이 운송 회사 사정으로 이틀 늦어졌다." },
+    { "id": "m_access", "kind": "claim", "content": "관리 페이지는 루프백 주소에서만 열리며 접속할 때 임시 토큰을 확인한다." },
+    { "id": "m_handoff", "kind": "commitment", "content": "다음 담당자가 업무를 이어갈 수 있도록 결정 사항과 미완료 작업을 문서로 남긴다." },
+    { "id": "d_key", "kind": "note", "content": "키보드의 열쇠 모양 장식은 노란색이며 장식품을 수리했다." },
+    { "id": "d_money", "kind": "note", "content": "여행 경비는 이십만 원으로 정했으며 기차 표를 예약했다." },
+    { "id": "d_report", "kind": "note", "content": "보고서 서식에서 금요일이라는 문자열을 삭제하는 방법을 설명했다." },
+    { "id": "d_food", "kind": "note", "content": "고기 보관 온도와 식당 냉장고를 점검하는 일반 안내문을 읽었다." }
+  ],
+  "queries": [
+    { "id": "q_transfer", "query": "누가 물건을 다른 사람에게 넘겼는가?", "relevant": ["m_transfer"] },
+    { "id": "q_stack", "query": "사용하는 프로그래밍 언어와 영구 저장 방식", "relevant": ["m_stack"] },
+    { "id": "q_food", "query": "준호에게 맞는 채식 메뉴", "relevant": ["m_vegetarian"], "entity_id": "junho" },
+    { "id": "q_deadline", "query": "금요일까지 재무팀으로 보내야 하는 결과물", "relevant": ["m_deadline"] },
+    { "id": "q_outage", "query": "결제가 느려진 장애의 원인", "relevant": ["m_outage"] },
+    { "id": "q_backup", "query": "데이터를 안전하게 복제하고 되살리는 절차", "relevant": ["m_backup"] },
+    { "id": "q_privacy", "query": "비밀 인증 값을 깃에 노출하지 않는 방법", "relevant": ["m_privacy"] },
+    { "id": "q_meeting", "query": "리아의 도서관 약속", "relevant": ["m_meeting"], "entity_id": "lia", "from": "2026-10-02T00:00:00Z", "to": "2026-10-03T00:00:00Z" },
+    { "id": "q_budget", "query": "관리 화면 제작 비용의 상한선", "relevant": ["m_budget"] },
+    { "id": "q_shipping", "query": "배송 지연 기간", "relevant": ["m_shipping"] },
+    { "id": "q_access", "query": "대시보드의 접근 제한과 인증", "relevant": ["m_access"] },
+    { "id": "q_handoff", "query": "작업 인수인계를 위한 기록", "relevant": ["m_handoff"] }
+  ]
+}
