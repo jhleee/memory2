@@ -140,3 +140,17 @@ it('a null gate requires an existing explicit null flag, not an absent flag',asy
  await c.core.call('rpg_game_act',c.user,{game_id:c.f.game_id,expected_revision:2,idempotency_key:'null-a',action:{actor_id:c.f.hero,type:'choose',params:{event_id:'chapter1-decision',choice_id:'faith'}}});
  expect((await c.review()).suggestions).toHaveLength(1);
  }finally{c.memory.close();}});
+
+it('a title-only update preserves note priority, labels and entity/event links', async () => {
+ const c=await setup();
+ try {
+  await c.tick(1);
+  const event=c.core.row('SELECT id FROM game_events WHERE game_id=?',c.f.game_id);
+  const created=await c.add('todo',{importance:3,entity_ids:[c.f.enemy],source_event_ids:[event.id],labels:['구조']});
+  const updated=await c.write({op:'update',note_id:created.note.id,patch:{title:'수문에서 확인한 흔적'}});
+  expect(updated.note).toMatchObject({...created.note,title:'수문에서 확인한 흔적'});
+  expect((await c.notes()).notes[0]).toMatchObject({importance:3,entity_ids:[c.f.enemy],source_event_ids:[event.id],labels:['구조']});
+  const cleared=await c.write({op:'update',note_id:created.note.id,patch:{importance:0,entity_ids:[],source_event_ids:[],labels:[]}});
+  expect(cleared.note).toMatchObject({importance:0,entity_ids:[],source_event_ids:[],labels:[]});
+ } finally {c.memory.close();}
+});
