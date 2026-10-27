@@ -1,0 +1,95 @@
+{
+  "input": {
+    "state": {
+      "scene_id": "square",
+      "world_tick": 7,
+      "characters": {
+        "hero": {
+          "hp": 3,
+          "max_hp": 5,
+          "position_id": "square",
+          "inventory": [
+            {
+              "item_id": "map",
+              "quantity": 1
+            }
+          ],
+          "conditions": []
+        }
+      },
+      "flags": {
+        "alarm": false,
+        "clue": null,
+        "count": 2,
+        "info": {
+          "owner": "guild"
+        }
+      },
+      "combat": null
+    },
+    "player_character_id": "hero",
+    "adjacency": {
+      "square": [
+        "gate"
+      ],
+      "gate": [
+        "square"
+      ]
+    },
+    "weapons": {
+      "sword": {
+        "damage_bonus": 2
+      }
+    },
+    "healing_items": []
+  },
+  "parsed": {
+    "state": {
+      "scene_id": "square",
+      "world_tick": 7,
+      "characters": {
+        "hero": {
+          "hp": 3,
+          "max_hp": 5,
+          "position_id": "square",
+          "inventory": [
+            {
+              "item_id": "map",
+              "quantity": 1
+            }
+          ],
+          "conditions": [],
+          "attack_bonus": 0,
+          "damage_bonus": 0,
+          "defense": 0
+        }
+      },
+      "flags": {
+        "alarm": false,
+        "clue": null,
+        "count": 2,
+        "info": {
+          "owner": "guild"
+        }
+      },
+      "combat": null
+    },
+    "player_character_id": "hero",
+    "adjacency": {
+      "square": [
+        "gate"
+      ],
+      "gate": [
+        "square"
+      ]
+    },
+    "weapons": {
+      "sword": {
+        "damage_bonus": 2
+      }
+    },
+    "healing_items": [],
+    "skill_checks": {}
+  },
+  "hash": "545e4d1084d7d1df58eeec8f6559285c2e606a17dae340c95a39de189cdc6974"
+}

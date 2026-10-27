@@ -39,15 +39,15 @@ export function createMcpServer(memory: Memory, runtime?: MemoryRuntime): McpSer
     try { return result(runtime ? runtime.record(input) : memory.record(input)); } catch (error) { return failure(error); }
   });
 
-  const recallSchema: z.ZodRawShape = {
+  const recallSchema = {
     space_id: z.string().min(1), query: z.string().optional(), kind: z.string().optional(),
     entity_id: z.string().optional(), from: z.string().optional(), to: z.string().optional(),
     at: z.string().optional(), limit: z.number().int().positive().max(200).optional(),
     max_chars: z.number().int().positive().optional(), recent_since: z.string().optional(),
   };
-  if (runtime) recallSchema.mode = z.enum(['lexical', 'hybrid', 'decision']).optional();
   server.tool('memory_recall', 'Search memories within one space.', {
     ...recallSchema,
+    ...(runtime ? { mode: z.enum(['lexical', 'hybrid', 'decision']).optional() } : {}),
   }, async (input) => {
     try { return result(runtime ? await runtime.recall(input as RuntimeQueryInput) : memory.recall(input as QueryInput)); } catch (error) { return failure(error); }
   });
