@@ -12,9 +12,9 @@ services:
       CONTROL_PLANE_API_KEY: ${CONTROL_PLANE_API_KEY:?Set an OpenAI runtime API key with Tunnels Read and Use}
       CONTROL_PLANE_TUNNEL_ID: ${CONTROL_PLANE_TUNNEL_ID:-tunnel_6ae0c0185e1481918046e7067c701e79}
       MCP_SERVER_URL: ${MCP_SERVER_URL:-https://qg840oww44wk08o0go4gc0kg.jhlee.me/mcp}
-      MCP_RUNTIME_BEARER_TOKEN: ${MCP_RUNTIME_BEARER_TOKEN:?Set the bearer token used by the memory2 server}
-      MCP_EXTRA_HEADERS: "Authorization: Bearer env:MCP_RUNTIME_BEARER_TOKEN"
-      MCP_DISCOVERY_EXTRA_HEADERS: "Authorization: Bearer env:MCP_RUNTIME_BEARER_TOKEN"
+      MCP_RUNTIME_AUTHORIZATION: ${MCP_RUNTIME_AUTHORIZATION:?Set the complete Bearer authorization value used by the memory2 server}
+      MCP_EXTRA_HEADERS: "Authorization: env:MCP_RUNTIME_AUTHORIZATION"
+      MCP_DISCOVERY_EXTRA_HEADERS: "Authorization: env:MCP_RUNTIME_AUTHORIZATION"
       MCP_STARTUP_WAIT_TIMEOUT: 60s
       LOG_LEVEL: info
       LOG_FORMAT: json
