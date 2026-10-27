@@ -1,0 +1,34 @@
+services:
+  tunnel-client:
+    image: ghcr.io/openai/tunnel-client:v0.0.18
+    restart: unless-stopped
+    user: "65534:65534"
+    read_only: true
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      CONTROL_PLANE_API_KEY: ${CONTROL_PLANE_API_KEY:?Set an OpenAI runtime API key with Tunnels Read and Use}
+      CONTROL_PLANE_TUNNEL_ID: ${CONTROL_PLANE_TUNNEL_ID:-tunnel_6ae0c0185e1481918046e7067c701e79}
+      MCP_SERVER_URL: ${MCP_SERVER_URL:-https://qg840oww44wk08o0go4gc0kg.jhlee.me/mcp}
+      MCP_RUNTIME_BEARER_TOKEN: ${MCP_RUNTIME_BEARER_TOKEN:?Set the bearer token used by the memory2 server}
+      MCP_EXTRA_HEADERS: "Authorization: Bearer env:MCP_RUNTIME_BEARER_TOKEN"
+      MCP_DISCOVERY_EXTRA_HEADERS: "Authorization: Bearer env:MCP_RUNTIME_BEARER_TOKEN"
+      MCP_STARTUP_WAIT_TIMEOUT: 60s
+      LOG_LEVEL: info
+      LOG_FORMAT: json
+      HEALTH_LISTEN_ADDR: 127.0.0.1:8080
+    healthcheck:
+      test:
+        - CMD
+        - /usr/bin/tunnel-client
+        - health
+        - --url
+        - http://127.0.0.1:8080/readyz
+        - --require-control-plane-poll
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+

@@ -3,7 +3,7 @@
 대상: 제품 0.4.0 / 2026-10-27.
 
 - [시작과 연결 방법](../README.md)
-- [ChatGPT 연결·배포](chatgpt.md), [GM 운영 지침](chatgpt-gm-instructions.md)
+- [ChatGPT 연결·배포](chatgpt.md), [OpenAI Secure MCP Tunnel 배포](chatgpt-tunnel.md), [GM 운영 지침](chatgpt-gm-instructions.md)
 - [구조와 상태 경계](architecture.md)
 - [알려진 한계](known-issues.md), [개발 우선순위](roadmap.md)
 - [평가 실행](../evaluation/README.md), [공개 자료 범위](evaluation-policy.md)

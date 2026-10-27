@@ -1,5 +1,11 @@
 # 변경 이력
 
+## OpenAI Secure MCP Tunnel 배포 — 2026-10-27
+
+- OpenAI 공식 터널 클라이언트의 고정 버전 Compose 구성과 Coolify 배포 환경변수 예시를 추가했습니다.
+- 기존 운영 bearer를 MCP 서버에만 정적 헤더로 전달하고 터널 헬스·control-plane 연결을 검사하도록 구성했습니다.
+- 개인용 터널 연결과 사용자별 공개 OAuth 연결의 적용 범위를 문서화했습니다.
+
 ## ChatGPT 연결 준비 — 2026-10-27
 
 - OAuth resource metadata와 401 scope challenge, 도구의 읽기·변경 annotations를 추가했습니다.

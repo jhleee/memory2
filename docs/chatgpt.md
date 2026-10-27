@@ -1,10 +1,12 @@
 # ChatGPT 연결과 배포
 
-문서 ID: MEMORY2-CHATGPT-001 / 기준일: 2026-10-27 / 대상: 0.4.0. 상태: 서버 계약·배포 구성 구현, 실제 ChatGPT OAuth 연결은 배포 후 확인 필요.
+문서 ID: MEMORY2-CHATGPT-001 / 기준일: 2026-10-27 / 대상: 0.4.0. 상태: 서버 계약·배포 구성 구현, 실제 ChatGPT 연결은 배포 후 확인 필요.
 
 ## 연결 방식
 
-ChatGPT가 GM을 맡고 이 서버의 MCP 도구로 세계·기억·행동을 저장합니다. ChatGPT 안에서 사용할 별도 OpenRouter GM 키는 필요하지 않습니다. 현재 구현은 stdio와 인증된 Streamable HTTP를 지원합니다. ChatGPT 연결에는 후자의 공개 HTTPS `/mcp` 주소와 외부 OAuth 제공자를 사용합니다.
+ChatGPT가 GM을 맡고 이 서버의 MCP 도구로 세계·기억·행동을 저장합니다. ChatGPT 안에서 사용할 별도 OpenRouter GM 키는 필요하지 않습니다. 현재 구현은 stdio와 인증된 Streamable HTTP를 지원합니다.
+
+개인용·내부 테스트는 [OpenAI Secure MCP Tunnel 배포](chatgpt-tunnel.md)를 권장합니다. 별도 OAuth 제공자 없이 기존 bearer 인증을 터널 내부에서 주입할 수 있습니다. 여러 사용자를 각자 식별하거나 공개 플러그인으로 배포할 때는 아래 공개 HTTPS `/mcp`와 외부 OAuth 제공자 방식을 사용합니다.
 
 이 저장소를 GitHub에 올리는 것만으로 서버가 실행되지는 않습니다. 현재 대화의 실행 환경을 영구 호스팅으로 취급하지 않습니다. 익명 공개 모드나 공용 개발 토큰으로 캠페인 소유권을 대체하지 않습니다.
 
