@@ -33,6 +33,17 @@ it('does not advertise OAuth for a local development token', async () => {
  } finally {await server.close();memory.close();}
 });
 
+it('returns the standard protocol negotiation error with the original JSON-RPC id', async () => {
+ const memory=new Memory(':memory:');const server=await serve(new RpgCore(memory),{port:0,devToken:'local-test-only'});
+ const base=`http://127.0.0.1:${(server.http.address() as any).port}`;
+ try {
+  const response=await fetch(base+'/mcp',{method:'POST',headers:{Authorization:'Bearer local-test-only','Content-Type':'application/json','MCP-Protocol-Version':'2026-07-28'},body:JSON.stringify({jsonrpc:'2.0',id:'openai-mcp-discover',method:'server/discover',params:{_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28','io.modelcontextprotocol/clientCapabilities':{}}}})});
+  expect(response.status).toBe(400);
+  expect(response.headers.get('cache-control')).toBe('no-store');
+  expect(await response.json()).toEqual({jsonrpc:'2.0',id:'openai-mcp-discover',error:{code:-32022,message:'Unsupported protocol version',data:{supported:['2025-11-25','2025-06-18','2025-03-26','2024-11-05','2024-10-07'],requested:'2026-07-28'}}});
+ } finally {await server.close();memory.close();}
+});
+
 it('describes reads, state changes and OAuth scopes in the actual MCP tool catalogue', async () => {
  const memory=new Memory(':memory:');const core=new RpgCore(memory);
  const server=createRpgMcp(core,core.user('test','owner'),{oauthScope:'rpg'});

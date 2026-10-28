@@ -3,6 +3,7 @@ import { timingSafeEqual } from 'node:crypto';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
+import { SUPPORTED_PROTOCOL_VERSIONS } from '@modelcontextprotocol/sdk/types.js';
 import { Memory } from '../memory.js';
 import { MemoryRuntime } from '../runtime.js';
 import { DEFAULT_OPENROUTER_DECISION_MODEL, OpenRouterDecisionProvider } from '../openrouter.js';
@@ -108,6 +109,22 @@ export async function serve(core: RpgCore, options: {
         }
         catch {
             res.writeHead(400).end();
+            return;
+        }
+        const requestedProtocol = req.headers['mcp-protocol-version'];
+        if (typeof requestedProtocol === 'string' && !SUPPORTED_PROTOCOL_VERSIONS.includes(requestedProtocol)) {
+            const request = parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+                ? parsed as { id?: unknown }
+                : undefined;
+            res.writeHead(400, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({
+                jsonrpc: '2.0',
+                id: request?.id ?? null,
+                error: {
+                    code: -32022,
+                    message: 'Unsupported protocol version',
+                    data: { supported: SUPPORTED_PROTOCOL_VERSIONS, requested: requestedProtocol },
+                },
+            }));
             return;
         }
         const server = createRpgMcp(core, user, oidc ? { oauthScope: scope } : {});

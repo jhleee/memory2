@@ -1,5 +1,10 @@
 # 변경 이력
 
+## ChatGPT 터널 프로토콜 협상 — 2026-10-28
+
+- 최신 MCP `server/discover` 요청이 지원 범위를 벗어나면 원래 JSON-RPC ID와 지원 버전 목록을 포함한 표준 `UnsupportedProtocolVersionError`를 반환합니다.
+- ChatGPT Secure MCP Tunnel이 이를 비정상 HTTP 오류로 오인하지 않고 지원하는 2025-11-25 초기화 방식으로 전환할 수 있게 했습니다.
+
 ## OpenAI Secure MCP Tunnel 배포 — 2026-10-27
 
 - OpenAI 공식 터널 클라이언트의 고정 버전 Compose 구성과 Coolify 배포 환경변수 예시를 추가했습니다.
