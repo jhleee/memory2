@@ -117,6 +117,12 @@ export async function serve(core: RpgCore, options: {
                 req.headers['mcp-name'] = mirroredName;
         }
         const chatgptSafeTools = new Set<ToolName>([
+            'rpg_game_time_configure',
+            'rpg_game_time_plan',
+            'rpg_game_time_schedule',
+            'rpg_game_time_reveal',
+            'rpg_game_gm_note_write',
+            'rpg_game_gm_review',
             'rpg_game_start',
             'rpg_world_create',
             'rpg_game_list',
