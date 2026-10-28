@@ -50,6 +50,8 @@ it('describes reads, state changes and OAuth scopes in the actual MCP tool catal
   await server.connect(a);await client.connect(b);
   const {tools}=await client.listTools();expect(tools).toHaveLength(25);
   for(const tool of tools) {
+   expect(tool.title).toBeTruthy();
+   expect(tool.inputSchema).toMatchObject({type:'object',additionalProperties:false});
    expect(tool.annotations).toMatchObject({idempotentHint:true});
    expect(typeof tool.annotations?.readOnlyHint).toBe('boolean');
    expect(tool._meta?.securitySchemes).toEqual([{type:'oauth2',scopes:['rpg']}]);
