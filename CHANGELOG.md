@@ -4,6 +4,7 @@
 
 - MCP v2 서버 패키지로 전환해 ChatGPT Secure MCP Tunnel의 `2026-07-28` `server/discover`와 현대식 `tools/list` 요청을 네이티브로 제공합니다.
 - 같은 엔드포인트에서 2025 계열 stateless 초기화도 계속 지원하며, HTTP 본문 제한·bearer/OIDC 인증·stdio 실행을 유지합니다.
+- 터널이 생략하는 SEP-2243 미러 헤더를 인증된 JSON-RPC envelope에서 복원해 최신 discovery가 구형 초기화로 잘못 후퇴하지 않게 했습니다.
 
 ## OpenAI Secure MCP Tunnel 배포 — 2026-10-27
 

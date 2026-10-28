@@ -86,13 +86,43 @@ export async function serve(core: RpgCore, options: {
             res.writeHead(405, { 'Allow': 'POST' }).end();
             return;
         }
+        let parsed: unknown;
+        try {
+            let body = '';
+            for await (const chunk of req) {
+                body += chunk.toString();
+                if (Buffer.byteLength(body) > 262144) {
+                    res.writeHead(413).end();
+                    return;
+                }
+            }
+            parsed = JSON.parse(body);
+        }
+        catch {
+            res.writeHead(400).end();
+            return;
+        }
+        // Secure MCP Tunnel currently forwards the modern envelope and protocol
+        // version but can omit SEP-2243 mirror headers. Restore them from the
+        // authenticated JSON-RPC body before handing the request to the strict SDK.
+        if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+            const message = parsed as { method?: unknown; params?: { name?: unknown; uri?: unknown; taskId?: unknown; _meta?: Record<string, unknown> } };
+            const protocol = message.params?._meta?.['io.modelcontextprotocol/protocolVersion'];
+            if (!req.headers['mcp-protocol-version'] && typeof protocol === 'string')
+                req.headers['mcp-protocol-version'] = protocol;
+            if (!req.headers['mcp-method'] && typeof message.method === 'string')
+                req.headers['mcp-method'] = message.method;
+            const mirroredName = message.params?.name ?? message.params?.uri ?? message.params?.taskId;
+            if (!req.headers['mcp-name'] && typeof mirroredName === 'string')
+                req.headers['mcp-name'] = mirroredName;
+        }
         const handler = createMcpHandler(
             () => createRpgMcp(core, user, oidc ? { oauthScope: scope } : {}),
             { legacy: 'stateless', maxRequestBodySize: 262144 },
         );
         resources.add(handler);
         try {
-            await toNodeHandler(handler, { maxRequestBodySize: 262144 })(req, res);
+            await toNodeHandler(handler, { maxRequestBodySize: 262144 })(req, res, parsed);
         }
         catch {
             if (!res.headersSent)

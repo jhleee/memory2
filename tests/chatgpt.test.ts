@@ -32,11 +32,11 @@ it('does not advertise OAuth for a local development token', async () => {
  } finally {await server.close();memory.close();}
 });
 
-it('serves the ChatGPT 2026-07-28 discovery exchange', async () => {
+it('serves ChatGPT tunnel discovery when SEP-2243 mirror headers are omitted', async () => {
  const memory=new Memory(':memory:');const server=await serve(new RpgCore(memory),{port:0,devToken:'local-test-only'});
  const base=`http://127.0.0.1:${(server.http.address() as any).port}`;
  try {
-  const response=await fetch(base+'/mcp',{method:'POST',headers:{Authorization:'Bearer local-test-only','Content-Type':'application/json','MCP-Protocol-Version':'2026-07-28','Mcp-Method':'server/discover'},body:JSON.stringify({jsonrpc:'2.0',id:'openai-mcp-discover',method:'server/discover',params:{_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28','io.modelcontextprotocol/clientCapabilities':{}}}})});
+  const response=await fetch(base+'/mcp',{method:'POST',headers:{Authorization:'Bearer local-test-only','Content-Type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:'openai-mcp-discover',method:'server/discover',params:{_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28','io.modelcontextprotocol/clientCapabilities':{}}}})});
   expect(response.status).toBe(200);
   expect(await response.json()).toMatchObject({jsonrpc:'2.0',id:'openai-mcp-discover',result:{supportedVersions:['2026-07-28'],capabilities:{tools:{listChanged:true}},resultType:'complete',_meta:{'io.modelcontextprotocol/serverInfo':{name:'rpg-mcp-platform',version:'0.4.0'}}}});
  } finally {await server.close();memory.close();}
