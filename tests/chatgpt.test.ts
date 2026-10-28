@@ -77,7 +77,7 @@ it('can expose one simple read tool to isolate ChatGPT catalogue validation', as
 });
 
 it('can expose the ChatGPT-safe catalogue without deeply nested authoring schemas', async () => {
- const excluded=new Set(['rpg_game_time_schedule','rpg_game_gm_note_write','rpg_game_propose_expansion','rpg_world_edit']);
+ const excluded=new Set(['rpg_game_time_schedule','rpg_game_gm_note_write','rpg_game_gm_review','rpg_game_propose_expansion','rpg_world_edit']);
  const names=new Set(Object.keys(contracts).filter(name=>!excluded.has(name)) as Array<keyof typeof contracts>);
  const memory=new Memory(':memory:');const core=new RpgCore(memory);
  const server=createRpgMcp(core,core.user('test','owner'),{toolNames:names});
@@ -85,7 +85,7 @@ it('can expose the ChatGPT-safe catalogue without deeply nested authoring schema
  try {
   await server.connect(a);await client.connect(b);
   const {tools}=await client.listTools();
-  expect(tools).toHaveLength(21);
+  expect(tools).toHaveLength(20);
   expect(tools.every(tool=>!excluded.has(tool.name))).toBe(true);
   expect(tools.every(tool=>Boolean(tool.title))).toBe(true);
  } finally {await client.close();await server.close();memory.close();}

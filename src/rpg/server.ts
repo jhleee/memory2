@@ -119,6 +119,7 @@ export async function serve(core: RpgCore, options: {
         const chatgptComplexTools = new Set<ToolName>([
             'rpg_game_time_schedule',
             'rpg_game_gm_note_write',
+            'rpg_game_gm_review',
             'rpg_game_propose_expansion',
             'rpg_world_edit',
         ]);
