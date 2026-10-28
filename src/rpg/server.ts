@@ -118,8 +118,6 @@ export async function serve(core: RpgCore, options: {
         }
         const chatgptSafeTools = new Set<ToolName>([
             'rpg_game_time_configure',
-            'rpg_game_time_plan',
-            'rpg_game_time_schedule',
             'rpg_game_start',
             'rpg_world_create',
             'rpg_game_list',
