@@ -1,6 +1,5 @@
 import { expect, it } from 'vitest';
-import { Client } from '@modelcontextprotocol/sdk/client/index.js';
-import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
+import { Client, InMemoryTransport } from '@modelcontextprotocol/client';
 import { Memory } from '../src/memory.js';
 import { RpgCore } from '../src/rpg/core.js';
 import { createRpgMcp } from '../src/rpg/mcp.js';
@@ -33,14 +32,13 @@ it('does not advertise OAuth for a local development token', async () => {
  } finally {await server.close();memory.close();}
 });
 
-it('returns the standard protocol negotiation error with the original JSON-RPC id', async () => {
+it('serves the ChatGPT 2026-07-28 discovery exchange', async () => {
  const memory=new Memory(':memory:');const server=await serve(new RpgCore(memory),{port:0,devToken:'local-test-only'});
  const base=`http://127.0.0.1:${(server.http.address() as any).port}`;
  try {
-  const response=await fetch(base+'/mcp',{method:'POST',headers:{Authorization:'Bearer local-test-only','Content-Type':'application/json','MCP-Protocol-Version':'2026-07-28'},body:JSON.stringify({jsonrpc:'2.0',id:'openai-mcp-discover',method:'server/discover',params:{_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28','io.modelcontextprotocol/clientCapabilities':{}}}})});
-  expect(response.status).toBe(400);
-  expect(response.headers.get('cache-control')).toBe('no-store');
-  expect(await response.json()).toEqual({jsonrpc:'2.0',id:'openai-mcp-discover',error:{code:-32022,message:'Unsupported protocol version',data:{supported:['2025-11-25','2025-06-18','2025-03-26','2024-11-05','2024-10-07'],requested:'2026-07-28'}}});
+  const response=await fetch(base+'/mcp',{method:'POST',headers:{Authorization:'Bearer local-test-only','Content-Type':'application/json','MCP-Protocol-Version':'2026-07-28','Mcp-Method':'server/discover'},body:JSON.stringify({jsonrpc:'2.0',id:'openai-mcp-discover',method:'server/discover',params:{_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28','io.modelcontextprotocol/clientCapabilities':{}}}})});
+  expect(response.status).toBe(200);
+  expect(await response.json()).toMatchObject({jsonrpc:'2.0',id:'openai-mcp-discover',result:{supportedVersions:['2026-07-28'],capabilities:{tools:{listChanged:true}},resultType:'complete',_meta:{'io.modelcontextprotocol/serverInfo':{name:'rpg-mcp-platform',version:'0.4.0'}}}});
  } finally {await server.close();memory.close();}
 });
 

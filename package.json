@@ -69,7 +69,10 @@
     "repo:check": "node scripts/check-repository.mjs"
   },
   "dependencies": {
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@modelcontextprotocol/node": "^2.1.2",
     "@modelcontextprotocol/sdk": "^1.32.2",
+    "@modelcontextprotocol/server": "^2.4.0",
     "ajv": "^8.20.0",
     "better-sqlite3": "^12.0.0",
     "jose": "^6.2.13",

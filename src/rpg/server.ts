@@ -1,9 +1,9 @@
 import { createServer } from 'node:http';
 import { timingSafeEqual } from 'node:crypto';
 import { createRemoteJWKSet, jwtVerify } from 'jose';
-import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
-import { SUPPORTED_PROTOCOL_VERSIONS } from '@modelcontextprotocol/sdk/types.js';
+import { createMcpHandler, type McpHttpHandler } from '@modelcontextprotocol/server';
+import { serveStdio as serveMcpStdio } from '@modelcontextprotocol/server/stdio';
+import { toNodeHandler } from '@modelcontextprotocol/node';
 import { Memory } from '../memory.js';
 import { MemoryRuntime } from '../runtime.js';
 import { DEFAULT_OPENROUTER_DECISION_MODEL, OpenRouterDecisionProvider } from '../openrouter.js';
@@ -36,10 +36,7 @@ export async function serve(core: RpgCore, options: {
     const metadataPath = '/.well-known/oauth-protected-resource/mcp';
     const metadataUrl = resourceUrl ? `${resourceUrl.origin}${metadataPath}` : undefined;
     const jwks = options.jwksUrl ? createRemoteJWKSet(new URL(options.jwksUrl)) : undefined;
-    const resources = new Set<{
-        server: ReturnType<typeof createRpgMcp>;
-        transport: StreamableHTTPServerTransport;
-    }>();
+    const resources = new Set<McpHttpHandler>();
     const http = createServer(async (req, res) => {
         if (req.url === '/health') {
             res.writeHead(200, { 'content-type': 'application/json' }).end('{"status":"ok"}');
@@ -89,63 +86,25 @@ export async function serve(core: RpgCore, options: {
             res.writeHead(405, { 'Allow': 'POST' }).end();
             return;
         }
-        let body = '';
+        const handler = createMcpHandler(
+            () => createRpgMcp(core, user, oidc ? { oauthScope: scope } : {}),
+            { legacy: 'stateless', maxRequestBodySize: 262144 },
+        );
+        resources.add(handler);
         try {
-            for await (const chunk of req) {
-                body += chunk.toString();
-                if (Buffer.byteLength(body) > 262144) {
-                    res.writeHead(413).end();
-                    return;
-                }
-            }
-        }
-        catch {
-            res.writeHead(400).end();
-            return;
-        }
-        let parsed: unknown;
-        try {
-            parsed = JSON.parse(body);
-        }
-        catch {
-            res.writeHead(400).end();
-            return;
-        }
-        const requestedProtocol = req.headers['mcp-protocol-version'];
-        if (typeof requestedProtocol === 'string' && !SUPPORTED_PROTOCOL_VERSIONS.includes(requestedProtocol)) {
-            const request = parsed && typeof parsed === 'object' && !Array.isArray(parsed)
-                ? parsed as { id?: unknown }
-                : undefined;
-            res.writeHead(400, { 'content-type': 'application/json', 'cache-control': 'no-store' }).end(JSON.stringify({
-                jsonrpc: '2.0',
-                id: request?.id ?? null,
-                error: {
-                    code: -32022,
-                    message: 'Unsupported protocol version',
-                    data: { supported: SUPPORTED_PROTOCOL_VERSIONS, requested: requestedProtocol },
-                },
-            }));
-            return;
-        }
-        const server = createRpgMcp(core, user, oidc ? { oauthScope: scope } : {});
-        const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
-        const resource = { server, transport };
-        resources.add(resource);
-        try {
-            await server.connect(transport);
-            await transport.handleRequest(req, res, parsed);
+            await toNodeHandler(handler, { maxRequestBodySize: 262144 })(req, res);
         }
         catch {
             if (!res.headersSent)
                 res.writeHead(500).end();
         }
         finally {
-            await server.close();
-            resources.delete(resource);
+            await handler.close();
+            resources.delete(handler);
         }
     });
     await new Promise<void>((resolve, reject) => { http.once('error', reject); http.listen(options.port ?? 3000, host, resolve); });
-    return { http, close: async () => { await new Promise<void>((resolve, reject) => http.close(e => e ? reject(e) : resolve())); await Promise.all([...resources].map(r => r.server.close())); } };
+    return { http, close: async () => { await new Promise<void>((resolve, reject) => http.close(e => e ? reject(e) : resolve())); await Promise.all([...resources].map(r => r.close())); } };
 }
 export async function main() {
     const memory = new Memory(process.env.RPG_DB ?? 'rpg.db');
@@ -154,8 +113,7 @@ export async function main() {
     let close: () => Promise<void>;
     if (process.argv.includes('--stdio')) {
         const user = core.user('local-development', process.env.RPG_LOCAL_USER ?? 'developer');
-        const server = createRpgMcp(core, user);
-        await server.connect(new StdioServerTransport());
+        const server = serveMcpStdio(() => createRpgMcp(core, user));
         close = () => server.close();
     }
     else {
