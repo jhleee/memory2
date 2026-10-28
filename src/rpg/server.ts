@@ -9,7 +9,7 @@ import { MemoryRuntime } from '../runtime.js';
 import { DEFAULT_OPENROUTER_DECISION_MODEL, OpenRouterDecisionProvider } from '../openrouter.js';
 import { RpgCore } from './core.js';
 import { createRpgMcp } from './mcp.js';
-import { requireThat } from './contracts.js';
+import { requireThat, type ToolName } from './contracts.js';
 export async function serve(core: RpgCore, options: {
     port?: number;
     host?: string;
@@ -116,8 +116,11 @@ export async function serve(core: RpgCore, options: {
             if (!req.headers['mcp-name'] && typeof mirroredName === 'string')
                 req.headers['mcp-name'] = mirroredName;
         }
+        const diagnosticToolNames = process.env.RPG_CHATGPT_MINIMAL === 'true'
+            ? new Set<ToolName>(['rpg_game_list'])
+            : undefined;
         const handler = createMcpHandler(
-            () => createRpgMcp(core, user, oidc ? { oauthScope: scope } : {}),
+            () => createRpgMcp(core, user, { oauthScope: oidc ? scope : undefined, toolNames: diagnosticToolNames }),
             { legacy: 'stateless', maxRequestBodySize: 262144 },
         );
         resources.add(handler);

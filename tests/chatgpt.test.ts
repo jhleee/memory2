@@ -63,6 +63,18 @@ it('describes reads, state changes and OAuth scopes in the actual MCP tool catal
  } finally {await client.close();await server.close();memory.close();}
 });
 
+it('can expose one simple read tool to isolate ChatGPT catalogue validation', async () => {
+ const memory=new Memory(':memory:');const core=new RpgCore(memory);
+ const server=createRpgMcp(core,core.user('test','owner'),{toolNames:new Set(['rpg_game_list'])});
+ const client=new Client({name:'chatgpt-minimal-contract',version:'1'});const [a,b]=InMemoryTransport.createLinkedPair();
+ try {
+  await server.connect(a);await client.connect(b);
+  const {tools}=await client.listTools();
+  expect(tools.map(tool=>tool.name)).toEqual(['rpg_game_list']);
+  expect(tools[0]).toMatchObject({title:'캠페인 목록 조회',inputSchema:{type:'object',additionalProperties:false}});
+ } finally {await client.close();await server.close();memory.close();}
+});
+
 it('rejects scope/header injection and noncanonical OAuth resources before listening', async () => {
  const memory=new Memory(':memory:');const core=new RpgCore(memory);
  const options={port:0,issuer:'https://idp.example/',audience:'https://rpg.example/mcp',jwksUrl:'https://idp.example/jwks'};
