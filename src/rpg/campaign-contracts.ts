@@ -1,5 +1,5 @@
 import { z } from 'zod';
-const key = z.string().min(1).max(180).regex(/^[\p{L}\p{N}][\p{L}\p{N}_.:-]*$/u).refine(s => !['__proto__', 'constructor', 'prototype'].includes(s));
+const key = z.string().min(1).max(180).refine(s => /^[\p{L}\p{N}][\p{L}\p{N}_.:-]*$/u.test(s)).refine(s => !['__proto__', 'constructor', 'prototype'].includes(s));
 const text = z.string().trim().min(1).max(2000);
 const value = z.union([z.string().max(2000), z.number().finite(), z.boolean(), z.null()]);
 export const entityKind = z.enum(['world', 'region', 'location', 'city', 'dungeon', 'person', 'npc', 'monster', 'religion', 'group', 'faction', 'item']);

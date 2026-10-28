@@ -1,5 +1,5 @@
 import { z } from 'zod';
-const key=z.string().min(1).max(180).regex(/^[\p{L}\p{N}][\p{L}\p{N}_.:-]*$/u).refine(s=>!['__proto__','constructor','prototype'].includes(s));
+const key=z.string().min(1).max(180).refine(s=>/^[\p{L}\p{N}][\p{L}\p{N}_.:-]*$/u.test(s)).refine(s=>!['__proto__','constructor','prototype'].includes(s));
 export const seconds=z.number().int().safe().nonnegative();
 const scalar=z.union([z.string().max(2000),z.number().finite(),z.boolean(),z.null()]);
 export const privateFact=z.object({subject_id:key,predicate:key,value:scalar}).strict();
