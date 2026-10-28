@@ -3,6 +3,7 @@ import { Client, InMemoryTransport } from '@modelcontextprotocol/client';
 import { Memory } from '../src/memory.js';
 import { RpgCore } from '../src/rpg/core.js';
 import { createRpgMcp } from '../src/rpg/mcp.js';
+import { contracts } from '../src/rpg/contracts.js';
 import { serve } from '../src/rpg/server.js';
 
 it('advertises canonical OAuth metadata and scope without trusting the request Host', async () => {
@@ -72,6 +73,21 @@ it('can expose one simple read tool to isolate ChatGPT catalogue validation', as
   const {tools}=await client.listTools();
   expect(tools.map(tool=>tool.name)).toEqual(['rpg_game_list']);
   expect(tools[0]).toMatchObject({title:'캠페인 목록 조회',inputSchema:{type:'object',additionalProperties:false}});
+ } finally {await client.close();await server.close();memory.close();}
+});
+
+it('can expose the ChatGPT-safe catalogue without deeply nested authoring schemas', async () => {
+ const excluded=new Set(['rpg_game_time_schedule','rpg_game_gm_note_write','rpg_game_propose_expansion','rpg_world_edit']);
+ const names=new Set(Object.keys(contracts).filter(name=>!excluded.has(name)) as Array<keyof typeof contracts>);
+ const memory=new Memory(':memory:');const core=new RpgCore(memory);
+ const server=createRpgMcp(core,core.user('test','owner'),{toolNames:names});
+ const client=new Client({name:'chatgpt-safe-contract',version:'1'});const [a,b]=InMemoryTransport.createLinkedPair();
+ try {
+  await server.connect(a);await client.connect(b);
+  const {tools}=await client.listTools();
+  expect(tools).toHaveLength(21);
+  expect(tools.every(tool=>!excluded.has(tool.name))).toBe(true);
+  expect(tools.every(tool=>Boolean(tool.title))).toBe(true);
  } finally {await client.close();await server.close();memory.close();}
 });
 
